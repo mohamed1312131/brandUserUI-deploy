@@ -17,11 +17,23 @@ export function app(): express.Express {
   server.set('view engine', 'html');
   server.set('views', browserDistFolder);
 
+  // Health check endpoint
+  server.get('/health', (req, res) => {
+    res.status(200).json({ status: 'OK', timestamp: new Date().toISOString() });
+  });
+
   // Example Express Rest API endpoints
   // server.get('/api/**', (req, res) => { });
+  
   // Serve static files from /browser
   server.get('*.*', express.static(browserDistFolder, {
-    maxAge: '1y'
+    maxAge: '1y',
+    setHeaders: (res, path) => {
+      // Set proper MIME types
+      if (path.endsWith('.js')) {
+        res.setHeader('Content-Type', 'application/javascript');
+      }
+    }
   }));
 
   // All regular routes use the Angular engine
@@ -37,7 +49,10 @@ export function app(): express.Express {
         providers: [{ provide: APP_BASE_HREF, useValue: baseUrl }],
       })
       .then((html) => res.send(html))
-      .catch((err) => next(err));
+      .catch((err) => {
+        console.error('SSR Error:', err);
+        next(err);
+      });
   });
 
   return server;
@@ -53,4 +68,7 @@ function run(): void {
   });
 }
 
-run();
+// Only run if this is the main module
+if (import.meta.url === `file://${process.argv[1]}`) {
+  run();
+}

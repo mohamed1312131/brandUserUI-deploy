@@ -1,7 +1,12 @@
-import { Component, AfterViewInit } from '@angular/core';
+import {
+  Component,
+  AfterViewInit,
+  Inject,
+  PLATFORM_ID
+} from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import AOS from 'aos';
 import { MatIconModule } from '@angular/material/icon';
-
 
 @Component({
   selector: 'app-our-service',
@@ -11,14 +16,16 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './our-service.component.css'
 })
 export class OurServiceComponent implements AfterViewInit {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
   ngAfterViewInit(): void {
-    AOS.init({
-      once: true,         // Optional: animations happen only once per element
-      duration: 800       // Optional: animation duration in ms
-    });
+    if (isPlatformBrowser(this.platformId)) {
+      AOS.init({
+        once: true,
+        duration: 800
+      });
 
-    // Or just refresh in case AOS is already initialized
-    AOS.refresh();
+      AOS.refresh();
+    }
   }
 }

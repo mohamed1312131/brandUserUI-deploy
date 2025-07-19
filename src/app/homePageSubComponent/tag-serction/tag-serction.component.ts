@@ -1,12 +1,21 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  Inject,
+  PLATFORM_ID
+} from '@angular/core';
+import {
+  CommonModule,
+  isPlatformBrowser
+} from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
-import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import Swiper from 'swiper';
 import 'swiper/css';
-import * as AOS from 'aos'; // Import AOS
+import * as AOS from 'aos';
 import { MatIconModule } from '@angular/material/icon';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-tag-serction',
@@ -17,31 +26,40 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class TagSerctionComponent implements OnInit, AfterViewInit {
   activeCategories: any[] = [];
+  isBrowser: boolean;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
+    this.isBrowser = isPlatformBrowser(platformId);
+  }
 
   ngOnInit(): void {
-    this.http.get<any[]>(`${environment.apiUrl}/categories/active`).subscribe({
-      next: (data) => {
-        this.activeCategories = data;
+    if (this.isBrowser) {
+      this.http.get<any[]>(`${environment.apiUrl}/categories/active`).subscribe({
+        next: (data) => {
+          this.activeCategories = data;
 
-        // Defer DOM update and initialize Swiper & AOS
-        setTimeout(() => {
-          this.initSwiperIfNeeded();
-          AOS.init();     // ✅ First init (in case first time load)
-          AOS.refresh();  // ✅ Refresh (for navigating back)
-        }, 0);
-      },
-      error: (err) => console.error('Failed to fetch active categories', err)
-    });
+          setTimeout(() => {
+            this.initSwiperIfNeeded();
+            AOS.init({ once: true, duration: 800 });
+            AOS.refresh();
+          }, 0);
+        },
+        error: (err) => console.error('Failed to fetch active categories', err)
+      });
+    }
   }
 
   ngAfterViewInit(): void {
-    // Can also do AOS.init() here for static content
+    if (this.isBrowser) {
+      AOS.refresh();
+    }
   }
 
   private initSwiperIfNeeded(): void {
-    if (this.activeCategories.length > 3) {
+    if (this.isBrowser && this.activeCategories.length > 3) {
       new Swiper('.category-swiper', {
         slidesPerView: 1,
         spaceBetween: 20,

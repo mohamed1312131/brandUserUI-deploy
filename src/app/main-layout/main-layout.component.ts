@@ -1,17 +1,16 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Component, Inject, OnInit, PLATFORM_ID, inject } from '@angular/core';
+import { Router, NavigationEnd, RouterOutlet } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { filter } from 'rxjs/operators';
+import { isPlatformBrowser, CommonModule } from '@angular/common';
 
-import { RouterOutlet } from '@angular/router';
 import { CartSideBarComponent } from '../homePageSubComponent/cart-side-bar/cart-side-bar.component';
 import { FooterComponent } from '../homePageSubComponent/footer/footer.component';
 import { InstagramSectionComponent } from '../homePageSubComponent/instagram-section/instagram-section.component';
 import { NavBarComponent } from '../homePageSubComponent/nav-bar/nav-bar.component';
 import { NewsLetterSectionComponent } from '../homePageSubComponent/news-letter-section/news-letter-section.component';
 import { SearchPopupComponent } from '../homePageSubComponent/search-popup/search-popup.component';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-main-layout',
@@ -42,11 +41,15 @@ import { CommonModule } from '@angular/common';
 })
 export class MainLayoutComponent implements OnInit {
   private router = inject(Router);
-  private http = inject(HttpClient); // ✅ Inject HttpClient
+  private http = inject(HttpClient);
+  private platformId = inject(PLATFORM_ID);
+
   showOutlet = true;
 
   ngOnInit(): void {
-    this.http.post(`${environment.apiUrl}/orders/track`, {}).subscribe();
+    if (isPlatformBrowser(this.platformId)) {
+      this.http.post(`${environment.apiUrl}/orders/track`, {}).subscribe();
+    }
   }
 
   constructor() {

@@ -40,6 +40,7 @@ export class ShopListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // Handle query param change for `category`
     this.route.queryParamMap.subscribe(params => {
       const category = params.get('category');
       if (this.isProductLoaded) {
@@ -53,9 +54,9 @@ export class ShopListComponent implements OnInit {
     this.frontService.getAllProducts().subscribe(data => {
       this.products = data;
 
-      this.categories = [...new Set(data.map(p => p.category).filter(Boolean))];
-      this.sizes = [...new Set(data.flatMap(p => p.sizes))];
-      this.colors = [...new Set(data.flatMap(p => p.colors))];
+      this.categories = Array.from(new Set(data.map(p => p.category).filter(Boolean)));
+      this.sizes = Array.from(new Set(data.flatMap(p => p.sizes || [])));
+      this.colors = Array.from(new Set(data.flatMap(p => p.colors || [])));
 
       this.isProductLoaded = true;
 
@@ -71,22 +72,26 @@ export class ShopListComponent implements OnInit {
   applyFilters(): void {
     this.filteredProducts = this.products.filter(product => {
       const categoryMatch = !this.selectedCategory || product.category === this.selectedCategory;
-      const sizeMatch = !this.selectedSize || product.sizes?.includes(this.selectedSize);
-      const colorMatch = !this.selectedColor || product.colors?.includes(this.selectedColor);
+      const sizeMatch = !this.selectedSize || (product.sizes?.includes(this.selectedSize) ?? false);
+      const colorMatch = !this.selectedColor || (product.colors?.includes(this.selectedColor) ?? false);
       return categoryMatch && sizeMatch && colorMatch;
     });
 
     this.currentPage = 1;
-    this.applySorting(); // Also calls updatePagination()
+    this.applySorting();
   }
 
   applySorting(): void {
     switch (this.selectedSort) {
       case 'color':
-        this.filteredProducts.sort((a, b) => (a.colors?.[0] || '').localeCompare(b.colors?.[0] || ''));
+        this.filteredProducts.sort((a, b) =>
+          (a.colors?.[0] || '').localeCompare(b.colors?.[0] || '')
+        );
         break;
       case 'size':
-        this.filteredProducts.sort((a, b) => (a.sizes?.[0] || '').localeCompare(b.sizes?.[0] || ''));
+        this.filteredProducts.sort((a, b) =>
+          (a.sizes?.[0] || '').localeCompare(b.sizes?.[0] || '')
+        );
         break;
       case 'price':
         this.filteredProducts.sort((a, b) => a.price - b.price);

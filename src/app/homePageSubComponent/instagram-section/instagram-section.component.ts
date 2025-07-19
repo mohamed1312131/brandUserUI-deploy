@@ -1,7 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Inject,
+  PLATFORM_ID
+} from '@angular/core';
+import {
+  CommonModule,
+  isPlatformBrowser
+} from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-instagram-section',
@@ -11,16 +19,24 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./instagram-section.component.css']
 })
 export class InstagramSectionComponent implements OnInit {
-  instagramUrl: string = 'https://www.instagram.com/'; // fallback
+  instagramUrl: string = 'https://www.instagram.com'; // fallback
+  isBrowser: boolean;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
+    this.isBrowser = isPlatformBrowser(platformId);
+  }
 
   ngOnInit(): void {
-    this.http.get<any>(`${environment.apiUrl}/website`).subscribe({
-      next: (data) => {
-        this.instagramUrl = data.instagramUrl || this.instagramUrl;
-      },
-      error: (err) => console.error('Failed to fetch Instagram URL', err)
-    });
+    if (this.isBrowser) {
+      this.http.get<any>(`${environment.apiUrl}/website`).subscribe({
+        next: (data) => {
+          this.instagramUrl = data?.instagramUrl || this.instagramUrl;
+        },
+        error: (err) => console.error('Failed to fetch Instagram URL', err)
+      });
+    }
   }
 }

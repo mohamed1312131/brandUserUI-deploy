@@ -1,11 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  Inject,
+  PLATFORM_ID
+} from '@angular/core';
+import {
+  CommonModule,
+  isPlatformBrowser
+} from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
 import { Router, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
 import { CartService } from '../../services/cartService';
 import AOS from 'aos';
+import { environment } from '../../../environments/environment.prod';
 
 @Component({
   selector: 'app-nav-bar',
@@ -14,51 +23,59 @@ import AOS from 'aos';
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.css'
 })
-export class NavBarComponent implements OnInit {
+export class NavBarComponent implements OnInit, AfterViewInit {
   activeCategories: any[] = [];
   cartCount: number = 0;
-  logoUrl: string = '../../assets/images/lighthamzalogoo.png'; // Default logo path
+  logoUrl: string = '../../assets/images/lighthamzalogoo.png'; // fallback
+  isBrowser: boolean;
 
-  constructor(private http: HttpClient, private router: Router, private cartService: CartService) {}
-ngAfterViewInit(): void {
-    AOS.init({
-      once: true,         // Optional: animations happen only once per element
-      duration: 800       // Optional: animation duration in ms
-    });
-
-    // Or just refresh in case AOS is already initialized
-    AOS.refresh();
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private cartService: CartService,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
+    this.isBrowser = isPlatformBrowser(platformId);
   }
-  
+
   ngOnInit(): void {
-  AOS.init({ duration: 800, once: true });
+    if (this.isBrowser) {
+      // Initialize AOS once
+      AOS.init({ duration: 800, once: true });
 
-  // Fetch webinfo to get logo
-  this.http.get<any>(`${environment.apiUrl}/website`).subscribe({
-    next: (webinfo) => {
-      if (webinfo && webinfo.logo) {
-        this.logoUrl = webinfo.logo;
-      }
-    },
-    error: (err) => {
-      console.error('Failed to fetch webinfo', err);
-      // Keep default logo on error
+      // Fetch website info
+      this.http.get<any>(`${environment.apiUrl}/website`).subscribe({
+        next: (webinfo) => {
+          if (webinfo?.logo) {
+            this.logoUrl = webinfo.logo;
+          }
+        },
+        error: (err) => {
+          console.error('Failed to fetch webinfo', err);
+        }
+      });
+
+      // Fetch active categories
+      this.http.get<any[]>(`${environment.apiUrl}/categories/active`).subscribe({
+        next: (data) => {
+          this.activeCategories = data;
+          setTimeout(() => AOS.refresh(), 0);
+        },
+        error: (err) => console.error('Failed to fetch categories', err)
+      });
     }
-  });
 
-  this.http.get<any[]>(`${environment.apiUrl}/categories/active`).subscribe({
-    next: (data) => {
-      this.activeCategories = data;
-      setTimeout(() => AOS.refresh(), 0); // Ensure AOS applies to newly loaded content
-    },
-    error: (err) => console.error('Failed to fetch categories', err)
-  });
+    // This can be safely run on both server and browser
+    this.cartService.cartItems$.subscribe(items => {
+      this.cartCount = items.reduce((sum, item) => sum + item.quantity, 0);
+    });
+  }
 
-  this.cartService.cartItems$.subscribe(items => {
-    this.cartCount = items.reduce((sum, item) => sum + item.quantity, 0);
-  });
-}
-
+  ngAfterViewInit(): void {
+    if (this.isBrowser) {
+      AOS.refresh(); // safe refresh after view init
+    }
+  }
 
   goToCategory(category: string): void {
     this.router.navigate(['/shop'], { queryParams: { category } });

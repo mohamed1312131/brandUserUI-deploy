@@ -1,14 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Inject,
+  PLATFORM_ID
+} from '@angular/core';
+import {
+  CommonModule,
+  isPlatformBrowser
+} from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
-import { CommonModule } from '@angular/common';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-contact-us',
   standalone: true,
-  imports: [CommonModule,ReactiveFormsModule,RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './contact-us.component.html',
   styleUrls: ['./contact-us.component.css']
 })
@@ -18,8 +26,15 @@ export class ContactUsComponent implements OnInit {
   location: string = '';
   instagramUrl: string = '';
   contactForm: FormGroup;
+  isBrowser: boolean;
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  constructor(
+    private fb: FormBuilder,
+    private http: HttpClient,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
+    this.isBrowser = isPlatformBrowser(platformId);
+
     this.contactForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -30,18 +45,21 @@ export class ContactUsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.http.get<any>(`${environment.apiUrl}/website`).subscribe({
-      next: (data) => {
-        this.phone = data.phone;
-        this.email = data.email;
-        this.location = data.location;
-        this.instagramUrl = data.instagramUrl;
-      },
-      error: (err) => {
-        console.error('Failed to load contact info', err);
-      }
-    });
+    if (this.isBrowser) {
+      this.http.get<any>(`${environment.apiUrl}/website`).subscribe({
+        next: (data) => {
+          this.phone = data?.phone || '';
+          this.email = data?.email || '';
+          this.location = data?.location || '';
+          this.instagramUrl = data?.instagramUrl || '';
+        },
+        error: (err) => {
+          console.error('Failed to load contact info', err);
+        }
+      });
+    }
   }
+
   onSubmit(): void {
     if (this.contactForm.invalid) return;
 
@@ -54,4 +72,3 @@ export class ContactUsComponent implements OnInit {
     });
   }
 }
-

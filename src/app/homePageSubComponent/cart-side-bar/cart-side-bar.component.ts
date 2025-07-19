@@ -1,5 +1,13 @@
-import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import {
+  Component,
+  OnInit,
+  Inject,
+  PLATFORM_ID
+} from '@angular/core';
+import {
+  CommonModule,
+  isPlatformBrowser
+} from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { CartItem, CartService } from '../../services/cartService';
 
@@ -32,56 +40,56 @@ export class CartSideBarComponent implements OnInit {
     return this.cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
   }
 
-increaseQty(item: CartItem): void {
-  this.cartService.updateQuantity(
-    item.productId, 
-    item.variantId, // Add this parameter
-    item.size, 
-    item.color, 
-    item.quantity + 1
-  );
-}
-
-decreaseQty(item: CartItem): void {
-  if (item.quantity > 1) {
+  increaseQty(item: CartItem): void {
     this.cartService.updateQuantity(
-      item.productId, 
-      item.variantId, // Add this parameter
-      item.size, 
-      item.color, 
-      item.quantity - 1
+      item.productId,
+      item.variantId,
+      item.size,
+      item.color,
+      item.quantity + 1
     );
-  } else {
-    this.removeItem(item);
   }
-}
 
-removeItem(item: CartItem): void {
-  this.cartService.removeItem(
-    item.productId, 
-    item.variantId, // Add this parameter
-    item.size, 
-    item.color
-  );
-}
+  decreaseQty(item: CartItem): void {
+    if (item.quantity > 1) {
+      this.cartService.updateQuantity(
+        item.productId,
+        item.variantId,
+        item.size,
+        item.color,
+        item.quantity - 1
+      );
+    } else {
+      this.removeItem(item);
+    }
+  }
 
-
+  removeItem(item: CartItem): void {
+    this.cartService.removeItem(
+      item.productId,
+      item.variantId,
+      item.size,
+      item.color
+    );
+  }
 
   closeCart(): void {
     if (this.isBrowser) {
       import('bootstrap').then(bootstrap => {
         const cart = document.getElementById('offcanvasCart');
         if (cart) {
-          const offcanvas = bootstrap.Offcanvas.getInstance(cart);
-          offcanvas?.hide();
+          // SSR-safe: create new instance if missing
+          const instance = bootstrap.Offcanvas.getInstance(cart) || new bootstrap.Offcanvas(cart);
+          instance.hide();
         }
+      }).catch(err => {
+        console.warn('Failed to load bootstrap for offcanvas:', err);
       });
     }
   }
 
   goToCheckout(): void {
-    this.closeCart(); // Optionally close cart before navigating
+    this.closeCart();
     this.router.navigate(['/checkout']);
   }
-
 }

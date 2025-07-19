@@ -1,13 +1,21 @@
-import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {
+  Component,
+  Inject,
+  PLATFORM_ID
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators
+} from '@angular/forms';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { environment } from '../../../environments/environment';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { HttpParams } from '@angular/common/http';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-news-letter-section',
@@ -26,19 +34,23 @@ import { CommonModule } from '@angular/common';
 export class NewsLetterSectionComponent {
   form: FormGroup;
   isSubmitting = false;
+  isBrowser: boolean;
 
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {
+    this.isBrowser = isPlatformBrowser(platformId);
+
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]]
     });
   }
 
   subscribe(): void {
-    if (this.form.invalid || this.isSubmitting) return;
+    if (this.form.invalid || this.isSubmitting || !this.isBrowser) return;
 
     this.isSubmitting = true;
 
