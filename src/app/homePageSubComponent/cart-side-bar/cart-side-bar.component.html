@@ -1,0 +1,48 @@
+<div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasCart">
+  <div class="offcanvas-header justify-content-center">
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+
+    <div class="order-md-last">
+      <h4 class="d-flex justify-content-between align-items-center mb-3">
+        <span class="text-primary">Votre panier</span>
+        <span class="badge bg-primary rounded-pill">{{ cartItems.length }}</span>
+      </h4>
+
+      <ul class="list-group mb-3">
+        <li class="list-group-item lh-sm" *ngFor="let item of cartItems">
+  <div class="d-flex justify-content-between align-items-center">
+    <div>
+      <h6 class="my-0">{{ item.title }}</h6>
+      <small class="text-body-secondary">
+        Taille: {{ item.size }} | Couleur: {{ item.color }}
+      </small>
+    </div>
+    <button class="btn btn-sm btn-outline-danger" (click)="removeItem(item)">
+      &times;
+    </button>
+  </div>
+
+  <div class="d-flex justify-content-between align-items-center mt-2">
+    <div class="input-group input-group-sm" style="max-width: 140px;">
+      <button class="btn btn-outline-secondary" (click)="decreaseQty(item)">−</button>
+      <input type="text" class="form-control text-center" [value]="item.quantity" readonly>
+      <button class="btn btn-outline-secondary" (click)="increaseQty(item)">+</button>
+    </div>
+    <span class="text-body-secondary">
+      {{ item.price * item.quantity | currency:'TND' }}
+    </span>
+  </div>
+</li>
+
+        <li class="list-group-item d-flex justify-content-between">
+          <span>Total</span>
+          <strong>{{ getTotal() | currency:'USD' }}</strong>
+        </li>
+      </ul>
+
+      <a class="w-100 btn btn-primary btn-lg" [routerLink]="['/checkout']" (click)="closeCart()">Continuer vers le paiement</a>
+    </div>
+  </div>
+</div>

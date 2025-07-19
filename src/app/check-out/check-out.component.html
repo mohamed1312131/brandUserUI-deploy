@@ -1,0 +1,123 @@
+<section class="py-5">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+      <h1 class="page-title pb-2">Panier</h1>
+      <nav class="breadcrumb fs-6">
+        <a class="breadcrumb-item nav-link" [routerLink]="['/']">Accueil</a>
+        <span class="breadcrumb-item active" aria-current="page">Panier</span>
+      </nav>
+    </div>
+  </div>
+</section>
+
+<section class="py-5" *ngIf="cartItems.length > 0">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="cart-table">
+          <div class="cart-header">
+            <div class="row d-flex">
+              <h6 class="cart-title text-uppercase text-muted col-lg-4 pb-3">Produit</h6>
+              <h6 class="cart-title text-uppercase text-muted col-lg-3 pb-3">Quantité</h6>
+              <h6 class="cart-title text-uppercase text-muted col-lg-4 pb-3">Sous-total</h6>
+            </div>
+          </div>
+
+          <div *ngFor="let item of cartItems" class="cart-item border-top border-bottom">
+            <div class="row align-items-center">
+              <div class="col-lg-4 col-md-3">
+                <div class="cart-info d-flex flex-wrap align-items-center mb-4">
+                  <div class="col-lg-5">
+                    <div class="card-image">
+                      <img [src]="item.thumbnail" alt="{{ item.title }}" class="img-fluid">
+                    </div>
+                  </div>
+                  <div class="col-lg-7">
+                    <div class="card-detail ps-3">
+                      <h5 class="card-title">{{ item.title }}</h5>
+                      <div class="card-price">
+                        <span class="money text-dark">
+                          DT{{ item.price.toFixed(2) }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-7">
+                <div class="row d-flex">
+                  <div class="col-md-4">
+                    <div class="input-group product-qty">
+                      <button type="button" class="btn btn-light" (click)="decreaseQty(item)">-</button>
+                      <input type="text" class="form-control input-number text-center" [value]="item.quantity" readonly>
+                      <button type="button" class="btn btn-light" (click)="increaseQty(item)">+</button>
+                    </div>
+                  </div>
+                  <div class="col-md-8 text-center">
+                    <div class="total-price">
+                      <span class="money text-dark">
+                        DT{{ (item.quantity * item.price).toFixed(2) }}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-1 col-md-2">
+                <div class="cart-remove">
+                  <button class="btn" (click)="removeItem(item)">
+                    <svg width="24px">
+                      <use xlink:href="#trash"></use>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="cart-totals bg-grey py-5">
+          <h4 class="text-dark pb-4">Total du Panier</h4>
+          <div class="total-price pb-5">
+            <table class="table text-uppercase">
+              <tbody>
+                <tr class="subtotal pt-2 pb-2 border-top border-bottom">
+                  <th>Sous-total</th>
+                  <td class="text-dark ps-5">
+                    DT{{ getTotal().toFixed(2) }}
+                  </td>
+                </tr>
+                <tr class="order-total pt-2 pb-2 border-bottom">
+                  <th>Total</th>
+                  <td class="text-dark ps-5">
+                    DT{{ getTotal().toFixed(2) }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="button-wrap row g-2">
+            <div class="col-md-6">
+              <button class="btn btn-dark text-uppercase w-100" style="background-color: #cc2020;" (click)="clearCart()">Vider le Panier</button>
+            </div>
+            <div class="col-md-6">
+              <a class="btn btn-dark text-uppercase w-100" href="/shop">Continuer les Achats</a>
+            </div>
+            <button class="btn w-100 text-white text-uppercase" style="background-color: #2bb642;" (click)="goToConfirm()">
+  Procéder au Paiement
+</button>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section *ngIf="cartItems.length === 0" class="py-5 text-center">
+  <h3>Votre panier est vide.</h3>
+  <a class="btn btn-primary mt-3" [routerLink]="['/']">Parcourir les Produits</a>
+</section>

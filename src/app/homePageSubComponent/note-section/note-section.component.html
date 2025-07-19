@@ -1,0 +1,20 @@
+<ng-container *ngIf="activeNote">
+  <section class="collection bg-light">
+    <div class="collection-item d-flex flex-wrap align-items-center my-5">
+      <div class="col-md-6">
+        <div class="image-holder">
+          <img [src]="activeNote.imageUrl" alt="note image" class="product-image img-fluid">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row justify-content-center">
+          <div class="col-md-8">
+            <h3 class="element-title text-uppercase">{{ activeNote.title }}</h3>
+            <p>{{ activeNote.description }}</p>
+            <a [routerLink]="['/shop']" class="btn btn-dark text-uppercase mt-3">Shop Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</ng-container>

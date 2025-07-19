@@ -1,0 +1,64 @@
+<section class="product-tabs mt-5">
+  <div class="container">
+    <div class="row">
+      <div class="tabs-listing">
+        <nav>
+          <div class="nav nav-tabs d-flex justify-content-center" id="nav-tab" role="tablist">
+            <button class="nav-link active text-uppercase px-5 py-3" id="nav-information-tab" data-bs-toggle="tab"
+              data-bs-target="#nav-information" type="button" role="tab" aria-controls="nav-information"
+              aria-selected="true">
+              Informations supplémentaires
+            </button>
+            <button class="nav-link text-uppercase px-5 py-3" id="nav-shipping-tab" data-bs-toggle="tab"
+              data-bs-target="#nav-shipping" type="button" role="tab" aria-controls="nav-shipping"
+              aria-selected="false">
+              Livraison et Retour
+            </button>
+            <button *ngIf="sizeGuide" class="nav-link text-uppercase px-5 py-3" id="nav-size-guide-tab" data-bs-toggle="tab"
+              data-bs-target="#nav-size-guide" type="button" role="tab" aria-controls="nav-size-guide"
+              aria-selected="false">
+              Guide des tailles
+            </button>
+          </div>
+        </nav>
+
+        <div class="tab-content py-5" id="nav-tabContent">
+          <!-- Additional Info (Active by default) -->
+          <div class="tab-pane fade show active" id="nav-information" role="tabpanel" aria-labelledby="nav-information-tab">
+            <h5>Informations Supplémentaires</h5>
+            <p>{{ additionalInfo }}</p>
+          </div>
+
+          <!-- Shipping & Return -->
+          <div class="tab-pane fade" id="nav-shipping" role="tabpanel" aria-labelledby="nav-shipping-tab" tabindex="0">
+            <div class="shipping-info">
+              <h5>Livraison</h5>
+              <ul>
+                <li>Livraison gratuite pour les commandes de plus de 500 dt</li>
+                <li>Livraison standard: 3-5 jours ouvrables</li>
+              </ul>
+              
+              <h5>Echange</h5>
+              <ul>
+                <li>Echange possible sous 30 jours</li>
+                <li>Articles en parfait état avec étiquettes</li>
+                <li>Echange de tailles possible</li>
+                <li>Pas de retour</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div *ngIf="sizeGuide" class="tab-pane fade" id="nav-size-guide" role="tabpanel" aria-labelledby="nav-size-guide-tab" tabindex="0">
+            <div class="size-guide-content">
+              <h5>Guide des tailles</h5>
+              <div class="size-guide-image-container">
+                <img [src]="sizeGuide" alt="Guide des tailles" class="size-guide-image" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>

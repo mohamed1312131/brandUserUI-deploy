@@ -1,0 +1,54 @@
+<footer id="footer" class="mt-5">
+  <div class="container">
+    <div class="row d-flex flex-wrap justify-content-between py-5">
+      
+      <!-- Logo + Social -->
+      <div class="col-md-3 col-sm-6">
+        <div class="footer-menu footer-menu-001">
+          <div class="footer-intro mb-4">
+            <a [routerLink]="['/']">
+              <img *ngIf="logoUrl" [src]="logoUrl" alt="logo" style="max-width: 150px;">
+            </a>
+          </div>
+          <p>{{ description }}</p>
+          <div class="social-links">
+            <ul class="list-unstyled d-flex flex-wrap gap-3">
+              <!-- Social icons remain unchanged -->
+              <li><a href="#" class="text-secondary"><mat-icon>facebook</mat-icon></a></li>
+              <li><a href="#" class="text-secondary"><mat-icon>alternate_email</mat-icon></a></li>
+              <li><a href="#" class="text-secondary"><mat-icon>play_circle</mat-icon></a></li>
+              <li><a href="#" class="text-secondary"><mat-icon>push_pin</mat-icon></a></li>
+              <li><a href="#" class="text-secondary"><mat-icon>camera_alt</mat-icon></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="col-md-3 col-sm-6">
+        <div class="footer-menu footer-menu-002">
+          <h5 class="widget-title text-uppercase mb-4">Liens Rapides</h5>
+          <ul class="menu-list list-unstyled text-uppercase border-animation-left fs-6">
+            <li class="menu-item"><a [routerLink]="['/']" class="item-anchor">Accueil</a></li>
+            <li class="menu-item"><a [routerLink]="['/about']" class="item-anchor">À Propos</a></li>
+            <li class="menu-item"><a [routerLink]="['/shop']" class="item-anchor">Boutique</a></li>
+            <li class="menu-item"><a [routerLink]="['/faq']" class="item-anchor">FAQ</a></li>
+            <li class="menu-item"><a [routerLink]="['/contact']" class="item-anchor">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Contact -->
+      <div class="col-md-3 col-sm-6">
+        <div class="footer-menu footer-menu-004 border-animation-left">
+          <h5 class="widget-title text-uppercase mb-4">Contactez-Nous</h5>
+          <p>
+            Avez-vous des questions ou des suggestions?
+            <a *ngIf="email" [href]="'mailto:' + email" class="item-anchor">{{ email }}</a>
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</footer>

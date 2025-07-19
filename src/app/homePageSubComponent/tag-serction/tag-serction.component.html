@@ -1,0 +1,55 @@
+<section *ngIf="activeCategories.length > 0" class="categories full-width-container overflow-hidden">
+  <!-- Swiper layout for 4+ categories -->
+  <div *ngIf="activeCategories.length > 3; else staticLayout" class="position-relative">
+    <div class="swiper category-swiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" *ngFor="let category of activeCategories">
+          <div class="cat-item image-zoom-effect position-relative">
+            <div class="image-holder">
+              <a [routerLink]="['/shop']" [queryParams]="{ category: category.name }">
+                <img [src]="category.imageUrl" alt="category image" class="product-image img-fluid" />
+              </a>
+              <div class="category-content text-uppercase">
+                <h4 class="text-white">{{ category.name }}</h4>
+                <a [routerLink]="['/shop']" class="text-white btn-link">Shop it Now</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="swiper-button-prev category-prev icon-arrow icon-arrow-left">
+      <mat-icon style="font-size: 30px; width: 30px; height: 30px;">chevron_left</mat-icon>
+    </div>
+    <div class="swiper-button-next category-next icon-arrow icon-arrow-right">
+      <mat-icon style="font-size: 30px; width: 30px; height: 30px;">chevron_right</mat-icon>
+    </div>
+  </div>
+
+  <!-- Static layout for 1–3 categories -->
+  <ng-template #staticLayout>
+    <div class="row d-flex flex-wrap justify-content-center">
+      <div
+        *ngFor="let category of activeCategories"
+        [ngClass]="{
+          'col-md-4': activeCategories.length === 3,
+          'col-md-6': activeCategories.length === 2,
+          'col-md-12': activeCategories.length === 1
+        }"
+        class="col-sm-12 mb-3"
+      >
+        <div class="cat-item image-zoom-effect position-relative w-100 h-100">
+          <div class="image-holder">
+            <a [routerLink]="['/shop']" [queryParams]="{ category: category.name }">
+              <img [src]="category.imageUrl" alt="category image" class="product-image img-fluid w-100" />
+            </a>
+            <div class="category-content text-uppercase">
+              <h4 class="text-white">{{ category.name }}</h4>
+              <a [routerLink]="['/shop']" class="text-white btn-link">Shop it Now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</section>

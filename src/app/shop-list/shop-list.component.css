@@ -1,0 +1,23 @@
+.color-swatch-wrapper {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.color-swatch {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+.color-swatch-wrapper input[type="radio"].visually-hidden {
+  position: absolute;
+  left: -9999px;
+}
+
+.color-swatch-wrapper input[type="radio"].visually-hidden:checked + .color-swatch {
+  border: 2px solid black;
+  outline: 2px solid #000;
+}

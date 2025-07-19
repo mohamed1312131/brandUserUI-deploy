@@ -1,0 +1,35 @@
+<section class="newsletter bg-light" style="background: url(../../assets/images/pattern-bg.png) no-repeat;">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 py-5 my-5">
+        <div class="subscribe-header text-center pb-3">
+          <h3 class="display-1 text-uppercase">Inscrivez-vous à notre newsletter</h3>
+        </div>
+
+        <form [formGroup]="form" (ngSubmit)="subscribe()" class="d-flex flex-wrap gap-2">
+          <div class="w-100">
+            <input
+              type="email"
+              formControlName="email"
+              placeholder="Votre Adresse Email"
+              class="form-control form-control-lg"
+              [ngClass]="{ 'is-invalid': form.get('email')?.invalid && form.get('email')?.touched }"
+            />
+            <div *ngIf="form.get('email')?.touched && form.get('email')?.errors" class="invalid-feedback d-block mt-1">
+              <div *ngIf="form.get('email')?.errors?.['required']">L'email est requis</div>
+              <div *ngIf="form.get('email')?.errors?.['email']">Format d'email invalide</div>
+            </div>
+          </div>
+
+          <button
+            class="btn btn-dark btn-lg text-uppercase w-100"
+            type="submit"
+            [disabled]="form.invalid"
+          >
+            S'inscrire
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

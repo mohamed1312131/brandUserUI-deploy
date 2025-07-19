@@ -1,0 +1,135 @@
+<section class="py-5">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+      <h1 class="page-title pb-2">Validation de commande</h1>
+      <nav class="breadcrumb fs-6">
+        <a class="breadcrumb-item nav-link" [routerLink]="['/']">Accueil</a>
+        <span class="breadcrumb-item active" aria-current="page">Validation</span>
+      </nav>
+    </div>
+  </div>
+</section>
+
+<section class="checkout-wrap pb-5">
+  <div class="container">
+    <form class="form-group" [formGroup]="checkoutForm" (ngSubmit)="submitOrder()">
+      <div class="row g-5">
+        <!-- Détails de facturation -->
+        <div class="col-lg-6">
+          <h4 class="text-dark pb-4">Détails de facturation</h4>
+          <div class="billing-details">
+            <label for="fname">Prénom*</label>
+            <input type="text" id="fname" class="form-control mt-2 mb-1 ps-3" formControlName="firstName">
+            <div *ngIf="checkoutForm.get('firstName')?.touched && checkoutForm.get('firstName')?.invalid" class="text-danger mb-3">Le prénom est requis.</div>
+
+            <label for="lname">Nom*</label>
+            <input type="text" id="lname" class="form-control mt-2 mb-1 ps-3" formControlName="lastName">
+            <div *ngIf="checkoutForm.get('lastName')?.touched && checkoutForm.get('lastName')?.invalid" class="text-danger mb-3">Le nom est requis.</div>
+
+            <label for="region">Gouvernorat / Région*</label>
+            <select id="region" class="form-select form-control mt-2 mb-1" formControlName="region">
+              <option value="" disabled selected hidden>Sélectionnez votre région</option>
+              <option value="Ariana">Ariana</option>
+              <option value="Béja">Béja</option>
+              <option value="Ben Arous">Ben Arous</option>
+              <option value="Bizerte">Bizerte</option>
+              <option value="Gabès">Gabès</option>
+              <option value="Gafsa">Gafsa</option>
+              <option value="Jendouba">Jendouba</option>
+              <option value="Kairouan">Kairouan</option>
+              <option value="Kasserine">Kasserine</option>
+              <option value="Kebili">Kebili</option>
+              <option value="Kef">Kef</option>
+              <option value="Mahdia">Mahdia</option>
+              <option value="Manouba">Manouba</option>
+              <option value="Medenine">Medenine</option>
+              <option value="Monastir">Monastir</option>
+              <option value="Nabeul">Nabeul</option>
+              <option value="Sfax">Sfax</option>
+              <option value="Sidi Bouzid">Sidi Bouzid</option>
+              <option value="Siliana">Siliana</option>
+              <option value="Sousse">Sousse</option>
+              <option value="Tataouine">Tataouine</option>
+              <option value="Tozeur">Tozeur</option>
+              <option value="Tunis">Tunis</option>
+              <option value="Zaghouan">Zaghouan</option>
+            </select>
+            <div *ngIf="checkoutForm.get('region')?.touched && checkoutForm.get('region')?.invalid" class="text-danger mb-3">
+              La région est requise.
+            </div>
+
+            <label for="address">Adresse*</label>
+            <input type="text" id="address" class="form-control mt-2 mb-1 ps-3" formControlName="address">
+            <div *ngIf="checkoutForm.get('address')?.touched && checkoutForm.get('address')?.invalid" class="text-danger mb-3">L’adresse est requise.</div>
+
+            <label for="city">Ville*</label>
+            <input type="text" id="city" class="form-control mt-2 mb-1 ps-3" formControlName="city">
+            <div *ngIf="checkoutForm.get('city')?.touched && checkoutForm.get('city')?.invalid" class="text-danger mb-3">La ville est requise.</div>
+
+            <label for="state">Gouvernorat / État*</label>
+            <input type="text" id="state" class="form-control mt-2 mb-1 ps-3" formControlName="state">
+            <div *ngIf="checkoutForm.get('state')?.touched && checkoutForm.get('state')?.invalid" class="text-danger mb-3">Le gouvernorat est requis.</div>
+
+            <label for="zipCode">Code Postal*</label>
+            <input type="text" id="zipCode" class="form-control mt-2 mb-1 ps-3" formControlName="zipCode">
+            <div *ngIf="checkoutForm.get('zipCode')?.touched && checkoutForm.get('zipCode')?.invalid" class="text-danger mb-3">Le code postal est requis.</div>
+
+            <label for="phone">Téléphone*</label>
+            <input type="text" id="phone" class="form-control mt-2 mb-1 ps-3" formControlName="phone">
+            <div *ngIf="checkoutForm.get('phone')?.touched && checkoutForm.get('phone')?.invalid" class="text-danger mb-3">Numéro de téléphone invalide (8 chiffres).</div>
+
+            <label for="email">Adresse e-mail*</label>
+            <input type="email" id="email" class="form-control mt-2 mb-1 ps-3" formControlName="email">
+            <div *ngIf="checkoutForm.get('email')?.touched && checkoutForm.get('email')?.invalid" class="text-danger mb-3">L'adresse email est invalide.</div>
+          </div>
+        </div>
+
+        <!-- Informations supplémentaires -->
+        <div class="col-lg-6">
+          <h4 class="text-dark pb-4">Informations supplémentaires</h4>
+          <div class="billing-details">
+            <label for="note">Notes de commande (facultatif)</label>
+            <textarea id="note" class="form-control pt-3 pb-3 ps-3 mt-2" placeholder="Notes concernant votre commande..." formControlName="note"></textarea>
+          </div>
+
+          <!-- Résumé du panier -->
+          <div class="your-order mt-5">
+            <h4 class="display-7 text-dark pb-4">Résumé du Panier</h4>
+            <div class="total-price">
+              <table cellspacing="0" class="table">
+                <tbody>
+                  <tr class="subtotal border-top border-bottom pt-2 pb-2 text-uppercase">
+                    <th>Sous-total</th>
+                    <td>
+                      <span class="price-amount amount ps-5">
+                        <bdi><span class="price-currency-symbol">DT</span>{{ getTotal().toFixed(2) }}</bdi>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr class="order-total border-bottom pt-2 pb-2 text-uppercase">
+                    <th>Total + Livraison</th>
+                    <td>
+                      <span class="price-amount amount ps-5">
+                        <bdi><span class="price-currency-symbol">DT</span>{{ getGrandTotal().toFixed(2) }}</bdi>
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <!-- Bouton de validation -->
+              <button
+                type="submit"
+                class="btn w-100 text-white"
+                style="background-color: #28a745;"
+                [disabled]="checkoutForm.invalid || isSubmitting">
+                {{ isSubmitting ? 'Commande en cours...' : 'Passer la commande' }}
+              </button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
