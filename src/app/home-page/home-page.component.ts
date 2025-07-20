@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+
 import { SearchPopupComponent } from "../homePageSubComponent/search-popup/search-popup.component";
 import { CarouselComponent } from '../homePageSubComponent/carousel/carousel.component';
 import { OurServiceComponent } from "../homePageSubComponent/our-service/our-service.component";
@@ -16,10 +20,31 @@ import { NavBarComponent } from "../homePageSubComponent/nav-bar/nav-bar.compone
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [SearchPopupComponent, CarouselComponent, OurServiceComponent, TagSerctionComponent, NewArrivalComponent, NoteSectionComponent, BestSellingComponent, VideoSectionComponent, NewsLetterSectionComponent, InstagramSectionComponent, FooterComponent, CartSideBarComponent, NavBarComponent],
+  imports: [
+    SearchPopupComponent,
+    CarouselComponent,
+    OurServiceComponent,
+    TagSerctionComponent,
+    NewArrivalComponent,
+    NoteSectionComponent,
+    BestSellingComponent,
+    VideoSectionComponent,
+    NewsLetterSectionComponent,
+    InstagramSectionComponent,
+    FooterComponent,
+    CartSideBarComponent,
+    NavBarComponent
+  ],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
 })
-export class HomePageComponent {
+export class HomePageComponent implements OnInit {
+  private http = inject(HttpClient);
+  private platformId = inject(PLATFORM_ID);
 
+  ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.http.post(`${environment.apiUrl}/orders/track`, {}).subscribe();
+    }
+  }
 }

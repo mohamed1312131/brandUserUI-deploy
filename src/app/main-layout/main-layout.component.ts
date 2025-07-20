@@ -1,7 +1,6 @@
 import { Component, Inject, OnInit, PLATFORM_ID, inject } from '@angular/core';
 import { Router, NavigationEnd, RouterOutlet } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
 import { filter } from 'rxjs/operators';
 import { isPlatformBrowser, CommonModule } from '@angular/common';
 
@@ -39,18 +38,14 @@ import { SearchPopupComponent } from '../homePageSubComponent/search-popup/searc
     </div>
   `
 })
-export class MainLayoutComponent implements OnInit {
+export class MainLayoutComponent {
   private router = inject(Router);
   private http = inject(HttpClient);
   private platformId = inject(PLATFORM_ID);
 
   showOutlet = true;
 
-  ngOnInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      this.http.post(`${environment.apiUrl}/orders/track`, {}).subscribe();
-    }
-  }
+
 
   constructor() {
     this.router.events
