@@ -13,7 +13,6 @@ import { RouterModule } from '@angular/router';
 import { FrontService, Carousel } from '../../services/front.service';
 import { MatIconModule } from '@angular/material/icon';
 
-// Import Swiper
 import Swiper from 'swiper';
 import 'swiper/swiper-bundle.css';
 
@@ -28,6 +27,7 @@ export class CarouselComponent implements OnInit, AfterViewInit {
   carousels: Carousel[] = [];
   swiper: Swiper | undefined;
   isBrowser: boolean;
+  domReady = false;
 
   @ViewChild('swiperWrapper', { static: false }) swiperWrapper!: ElementRef;
 
@@ -42,34 +42,44 @@ export class CarouselComponent implements OnInit, AfterViewInit {
     this.carouselService.getActive().subscribe((data) => {
       this.carousels = data;
 
+      // Mark DOM ready and defer Swiper init to ngAfterViewInit
       if (this.isBrowser) {
-        // Ensure DOM is ready before initializing Swiper
         setTimeout(() => {
+          this.domReady = true;
           this.initSwiper();
-        }, 0);
+        }, 100); // Delay ensures DOM renders with *ngIf
       }
     });
   }
 
   ngAfterViewInit(): void {
-    // Leave empty or use it for browser-only logic if needed
+    // In case data comes late, retry swiper init
+    if (this.isBrowser) {
+      setTimeout(() => this.initSwiper(), 500);
+    }
   }
 
   initSwiper(): void {
-    if (this.isBrowser && !this.swiper && this.swiperWrapper) {
-      this.swiper = new Swiper('.slideshow', {
-        loop: true,
-        pagination: {
-          el: '.swiper-pagination',
-          clickable: true
-        },
-        navigation: {
-          nextEl: '.icon-arrow-right',
-          prevEl: '.icon-arrow-left'
-        }
-      });
-    } else if (this.swiper) {
+    if (!this.isBrowser || !this.carousels.length) return;
+
+    const wrapper = this.swiperWrapper?.nativeElement;
+    if (!wrapper || wrapper.querySelectorAll('.swiper-slide').length === 0) return;
+
+    if (this.swiper) {
       this.swiper.update();
+      return;
     }
+
+    this.swiper = new Swiper('.slideshow', {
+      loop: true,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true
+      },
+      navigation: {
+        nextEl: '.icon-arrow-right',
+        prevEl: '.icon-arrow-left'
+      }
+    });
   }
 }
