@@ -340,3 +340,8 @@
 .offcanvas {
   will-change: transform;
 }
+@media (min-width: 992px) {
+  #offcanvasNavbar {
+    display: none !important;
+  }
+}

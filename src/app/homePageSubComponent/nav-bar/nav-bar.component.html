@@ -89,10 +89,13 @@
   </div>
 
   <!-- Mobile Offcanvas Menu (Only rendered on mobile) -->
-  <div class="offcanvas offcanvas-start d-lg-none" 
-       tabindex="-1" 
-       id="offcanvasNavbar" 
-       aria-labelledby="offcanvasNavbarLabel">
+  <!-- Mobile Offcanvas Menu (Only rendered on browser) -->
+<div *ngIf="isBrowser"
+     class="offcanvas offcanvas-start d-lg-none" 
+     tabindex="-1" 
+     id="offcanvasNavbar" 
+     aria-labelledby="offcanvasNavbarLabel">
+
     <div class="offcanvas-header">
       <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
         <mat-icon class="me-2">menu</mat-icon>
