@@ -27,7 +27,6 @@ export class CarouselComponent implements OnInit, AfterViewInit {
   carousels: Carousel[] = [];
   swiper: Swiper | undefined;
   isBrowser: boolean;
-  domReady = false;
 
   @ViewChild('swiperWrapper', { static: false }) swiperWrapper!: ElementRef;
 
@@ -39,31 +38,30 @@ export class CarouselComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.carouselService.getActive().subscribe((data) => {
-      this.carousels = data;
-
-      // Mark DOM ready and defer Swiper init to ngAfterViewInit
-      if (this.isBrowser) {
-        setTimeout(() => {
-          this.domReady = true;
-          this.initSwiper();
-        }, 100); // Delay ensures DOM renders with *ngIf
-      }
-    });
+    // Only fetch data if we're on the browser
+    if (this.isBrowser) {
+      this.carouselService.getActive().subscribe((data) => {
+        this.carousels = data;
+      });
+    }
   }
 
   ngAfterViewInit(): void {
-    // In case data comes late, retry swiper init
-    if (this.isBrowser) {
-      setTimeout(() => this.initSwiper(), 500);
-    }
+    if (!this.isBrowser) return;
+
+    const interval = setInterval(() => {
+      const wrapper = this.swiperWrapper?.nativeElement;
+      const slides = wrapper?.querySelectorAll('.swiper-slide') || [];
+
+      if (slides.length > 0) {
+        clearInterval(interval);
+        this.initSwiper();
+      }
+    }, 100);
   }
 
   initSwiper(): void {
     if (!this.isBrowser || !this.carousels.length) return;
-
-    const wrapper = this.swiperWrapper?.nativeElement;
-    if (!wrapper || wrapper.querySelectorAll('.swiper-slide').length === 0) return;
 
     if (this.swiper) {
       this.swiper.update();
