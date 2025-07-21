@@ -1,8 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light text-white text-uppercase fs-6 p-3 border-bottom border-light align-items-center fixed-top border-opacity-10">
   <div class="container-fluid">
-    <!-- Mobile Layout -->
     <div class="d-flex d-lg-none justify-content-between align-items-center w-100">
-      <!-- Mobile Menu Button (Left) -->
       <button class="navbar-toggler mobile-menu-btn" 
               type="button" 
               data-bs-toggle="offcanvas" 
@@ -12,12 +10,10 @@
         <mat-icon class="menu-icon">menu</mat-icon>
       </button>
       
-      <!-- Logo (Center) -->
       <a class="navbar-brand mx-auto" [routerLink]="['/']">
         <img [src]="logoUrl" alt="logo" class="navbar-logo">
       </a>
       
-      <!-- Cart Button (Right) -->
       <button class="cart-btn" 
               data-bs-toggle="offcanvas" 
               data-bs-target="#offcanvasCart"
@@ -27,28 +23,28 @@
       </button>
     </div>
 
-    <!-- Desktop Layout -->
-    <div class="row justify-content-between align-items-center w-100 d-none d-lg-flex">
-      <div class="col-auto">
+    <div class="d-none d-lg-flex justify-content-between align-items-center w-100">
+      <div class="flex-shrink-0">
         <a class="navbar-brand" [routerLink]="['/']">
           <img [src]="logoUrl" alt="logo" class="navbar-logo">
         </a>
       </div>
-      <div class="col-auto">
-        <ul class="navbar-nav d-flex flex-row gap-5">
+
+      <div class="flex-grow-1 d-flex justify-content-center">
+        <ul class="navbar-nav flex-row gap-4">
           <li class="nav-item">
             <a class="nav-link active" [routerLink]="['/']">Accueil</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" [routerLink]="['/shop']">Boutique</a>
           </li>
-          <li class="nav-item dropdown category-dropdown" *ngIf="activeCategories.length > 0">
+          <li class="nav-item dropdown" *ngIf="activeCategories.length > 0">
             <a class="nav-link dropdown-toggle" id="categoryDropdown" data-bs-toggle="dropdown">
               Catégorie
             </a>
-            <ul class="dropdown-menu list-unstyled" aria-labelledby="categoryDropdown">
+            <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
               <li *ngFor="let category of activeCategories">
-                <a class="dropdown-item item-anchor" (click)="goToCategory(category.name)">
+                <a class="dropdown-item" (click)="goToCategory(category.name)">
                   {{ category.name }}
                 </a>
               </li>
@@ -65,7 +61,8 @@
           </li>
         </ul>
       </div>
-      <div class="col-auto">
+
+      <div class="flex-shrink-0">
         <button class="cart-btn desktop-cart" 
                 data-bs-toggle="offcanvas" 
                 data-bs-target="#offcanvasCart"
@@ -77,49 +74,37 @@
       </div>
     </div>
 
-    <!-- Mobile Offcanvas -->
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
       <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
           <mat-icon class="me-2">menu</mat-icon>
           Menu
         </h5>
-        <button type="button" 
-                class="btn-close" 
-                data-bs-dismiss="offcanvas" 
-                aria-label="Close">
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close">
           <mat-icon>close</mat-icon>
         </button>
       </div>
       <div class="offcanvas-body">
         <ul class="navbar-nav flex-column gap-3">
           <li class="nav-item">
-            <a class="nav-link d-flex align-items-center" 
-               [routerLink]="['/']"
-               data-bs-dismiss="offcanvas">
-              <mat-icon class="me-3">home</mat-icon>
-              Accueil
+            <a class="nav-link d-flex align-items-center" [routerLink]="['/']" data-bs-dismiss="offcanvas">
+              <mat-icon class="me-3">home</mat-icon>Accueil
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link d-flex align-items-center" 
-               [routerLink]="['/shop']"
-               data-bs-dismiss="offcanvas">
-              <mat-icon class="me-3">store</mat-icon>
-              Boutique
+            <a class="nav-link d-flex align-items-center" [routerLink]="['/shop']" data-bs-dismiss="offcanvas">
+              <mat-icon class="me-3">store</mat-icon>Boutique
             </a>
           </li>
           <li class="nav-item" *ngIf="activeCategories.length > 0">
             <div class="mobile-category-section">
-              <div class="mobile-category-header d-flex align-items-center mb-3">
+              <div class="mobile-category-header">
                 <mat-icon class="me-3">category</mat-icon>
                 <span>Catégories</span>
               </div>
               <ul class="list-unstyled ms-4">
                 <li *ngFor="let category of activeCategories" class="mb-2">
-                  <a class="nav-link py-2" 
-                     (click)="goToCategory(category.name)"
-                     data-bs-dismiss="offcanvas">
+                  <a class="nav-link py-2" (click)="goToCategory(category.name)" data-bs-dismiss="offcanvas">
                     {{ category.name }}
                   </a>
                 </li>
@@ -127,27 +112,18 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link d-flex align-items-center" 
-               [routerLink]="['/contact']"
-               data-bs-dismiss="offcanvas">
-              <mat-icon class="me-3">contact_mail</mat-icon>
-              Contact
+            <a class="nav-link d-flex align-items-center" [routerLink]="['/contact']" data-bs-dismiss="offcanvas">
+              <mat-icon class="me-3">contact_mail</mat-icon>Contact
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link d-flex align-items-center" 
-               [routerLink]="['/faq']"
-               data-bs-dismiss="offcanvas">
-              <mat-icon class="me-3">help</mat-icon>
-              FAQ
+            <a class="nav-link d-flex align-items-center" [routerLink]="['/faq']" data-bs-dismiss="offcanvas">
+              <mat-icon class="me-3">help</mat-icon>FAQ
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link d-flex align-items-center" 
-               [routerLink]="['/about']"
-               data-bs-dismiss="offcanvas">
-              <mat-icon class="me-3">info</mat-icon>
-              À Propos
+            <a class="nav-link d-flex align-items-center" [routerLink]="['/about']" data-bs-dismiss="offcanvas">
+              <mat-icon class="me-3">info</mat-icon>À Propos
             </a>
           </li>
         </ul>
