@@ -1,75 +1,65 @@
 <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasCart">
   <div class="offcanvas-header">
     <h5 class="offcanvas-title d-flex align-items-center">
-      <i class="fas fa-shopping-cart me-2"></i> Votre Panier
+      <mat-icon class="me-2">shopping_cart</mat-icon>
+      Votre Panier
     </h5>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
 
   <div class="offcanvas-body d-flex flex-column">
-    <div *ngIf="cartItems.length > 0; else emptyCart" class="flex-grow-1">
-      <ul class="list-group list-group-flush cart-items-list">
-        <li class="list-group-item" *ngFor="let item of cartItems; trackBy: trackByItemId">
-          <div class="cart-item">
-           <!-- <img [src]="item.imageUrl" [alt]="item.title" class="cart-item-image me-3"> -->
 
-            <div class="cart-item-details">
-              <h6 class="item-title">{{ item.title }}</h6>
-              <small class="text-muted">Taille: {{ item.size }} | Couleur: {{ item.color }}</small>
-              <div class="item-price">{{ item.price | currency:'TND':'symbole':'1.2-2' }}</div>
-            </div>
+    <div *ngIf="cartItems.length > 0; else emptyCart" class="d-flex flex-column flex-grow-1">
+      <div class="cart-items-list flex-grow-1">
+        <div class="cart-item" *ngFor="let item of cartItems">
+          <img [src]="item.imageUrl" [alt]="item.title" class="cart-item-image me-3">
 
-            <div class="cart-item-actions">
-              <div class="quantity-control">
-                <button class="btn btn-sm btn-outline-secondary" (click)="decreaseQty(item)">
-                  <i class="fas fa-minus"></i>
-                </button>
-                <span class="quantity-display">{{ item.quantity }}</span>
-                <button class="btn btn-sm btn-outline-secondary" (click)="increaseQty(item)">
-                  <i class="fas fa-plus"></i>
-                </button>
-              </div>
-              <button class="btn btn-link text-danger remove-btn" (click)="removeItem(item)">
-                <i class="fas fa-trash-alt"></i>
+          <div class="cart-item-details">
+            <h6 class="item-title">{{ item.title }}</h6>
+            <small class="text-muted">Taille: {{ item.size }} | Couleur: {{ item.color }}</small>
+            <div class="item-subtotal">{{ item.price * item.quantity | currency:'TND' }}</div>
+          </div>
+
+          <div class="cart-item-actions">
+            <div class="quantity-control">
+              <button class="btn btn-icon" (click)="decreaseQty(item)">
+                <mat-icon>remove</mat-icon>
+              </button>
+              <span class="quantity-display">{{ item.quantity }}</span>
+              <button class="btn btn-icon" (click)="increaseQty(item)">
+                <mat-icon>add</mat-icon>
               </button>
             </div>
+            <button class="btn btn-icon text-danger remove-btn" (click)="removeItem(item)">
+              <mat-icon>delete_outline</mat-icon>
+            </button>
           </div>
-        </li>
-      </ul>
+        </div>
+      </div>
+
+      <div class="cart-footer mt-auto">
+        <div class="d-flex justify-content-between align-items-center mb-3 fs-5">
+          <span class="fw-medium">Total</span>
+          <strong class="text-primary">{{ getTotal() | currency:'TND' }}</strong>
+        </div>
+        <button (click)="goToCheckout()" class="btn btn-primary btn-lg w-100 checkout-btn">
+          <mat-icon>credit_card</mat-icon>
+          <span class="ms-2">Continuer vers le paiement</span>
+        </button>
+      </div>
     </div>
 
     <ng-template #emptyCart>
       <div class="empty-cart-container">
-        <i class="fas fa-box-open empty-cart-icon"></i>
+        <mat-icon class="empty-cart-icon">production_quantity_limits</mat-icon>
         <h5 class="mt-3">Votre panier est vide</h5>
         <p class="text-muted">On dirait que vous n'avez encore rien ajouté.</p>
-        <button (click)="goToShopping()" class="btn btn-primary mt-3">
-          <i class="fas fa-store me-2"></i> Commencer vos achats
-        </button>
+        <a [routerLink]="['/products']" (click)="closeCart()" class="btn btn-primary mt-3">
+          <mat-icon>storefront</mat-icon>
+          <span class="ms-2">Commencer vos achats</span>
+        </a>
       </div>
     </ng-template>
 
-    <div class="cart-footer mt-auto" *ngIf="cartItems.length > 0">
-      <div class="shipping-progress-container mb-3" *ngIf="getFreeShippingDifference() > 0">
-        <small class="d-block text-center mb-1">
-          Plus que <strong class="text-primary">{{ getFreeShippingDifference() | currency:'TND' }}</strong> pour la livraison gratuite !
-        </small>
-        <div class="progress" style="height: 10px;">
-          <div class="progress-bar bg-primary" role="progressbar" [style.width.%]="getShippingProgress()" aria-valuenow="getShippingProgress()" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
-      </div>
-      <div class="shipping-progress-container mb-3 text-center" *ngIf="getFreeShippingDifference() === 0">
-        <small class="text-success fw-bold"><i class="fas fa-check-circle me-1"></i> Vous bénéficiez de la livraison gratuite !</small>
-      </div>
-
-      <div class="d-flex justify-content-between align-items-center mb-3 fs-5">
-        <span class="fw-medium">Total</span>
-        <strong class="text-primary">{{ getTotal() | currency:'TND':'symbole':'1.2-2' }}</strong>
-      </div>
-
-      <button (click)="goToCheckout()" class="btn btn-primary btn-lg w-100 checkout-btn">
-        <i class="fas fa-credit-card me-2"></i> Continuer vers le paiement
-      </button>
-    </div>
   </div>
 </div>

@@ -11,6 +11,7 @@ export interface CartItem {
   size: string;
   quantity: number;
   thumbnail: string;
+  imageUrl: string;
 }
 
 @Injectable({
