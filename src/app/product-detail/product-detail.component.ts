@@ -67,6 +67,7 @@ export class ProductDetailComponent implements OnInit, AfterViewInit, OnDestroy 
   quantity: number = 1;
   private swiperInitialized = false;
   private isBrowser: boolean;
+  
 
   constructor(
     private route: ActivatedRoute,
@@ -217,24 +218,32 @@ export class ProductDetailComponent implements OnInit, AfterViewInit, OnDestroy 
   }
 
   addToCart(): void {
-    if (!this.product || !this.selectedVariant || !this.selectedSize) {
-      alert('Please select a size.');
-      return;
-    }
+  if (!this.product || !this.selectedVariant || !this.selectedSize) {
+    alert('Please select a size.');
+    return;
+  }
+  
+  // ✅ REFINEMENT: Check stock for the selected size
+  const sizeInfo = this.selectedVariant.sizes.find(s => s.size === this.selectedSize);
 
-    const item: CartItem = {
-      productId: this.product.id,
-      variantId: this.selectedVariant.variantId,
-      title: this.product.title,
-      price: this.product.price,
-      color: this.selectedVariant.color,
-      size: this.selectedSize,
-      quantity: this.quantity,
-      thumbnail: this.selectedVariant.images[0] || '',
-      imageUrl: this.selectedVariant.images[0] || ''
-    };
+  if (!sizeInfo || sizeInfo.stock <= 0) {
+    alert('Sorry, this size is currently out of stock.');
+    return;
+  }
 
-    this.cartService.addToCart(item);
+  const item: CartItem = {
+    productId: this.product.id,
+    variantId: this.selectedVariant.variantId,
+    title: this.product.title,
+    price: this.product.price,
+    color: this.selectedVariant.color,
+    size: this.selectedSize,
+    quantity: this.quantity,
+    thumbnail: this.selectedVariant.images[0] || '',
+    imageUrl: this.selectedVariant.images[0] || ''
+  };
+
+  this.cartService.addToCart(item);
 
     if (this.isBrowser) {
       import('bootstrap').then(bootstrap => {
