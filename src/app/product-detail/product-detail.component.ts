@@ -230,7 +230,8 @@ export class ProductDetailComponent implements OnInit, AfterViewInit, OnDestroy 
       color: this.selectedVariant.color,
       size: this.selectedSize,
       quantity: this.quantity,
-      thumbnail: this.selectedVariant.images[0] || ''
+      thumbnail: this.selectedVariant.images[0] || '',
+      imageUrl: this.selectedVariant.images[0] || ''
     };
 
     this.cartService.addToCart(item);

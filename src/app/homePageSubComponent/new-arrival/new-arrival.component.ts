@@ -76,7 +76,8 @@ export class NewArrivalComponent implements OnInit {
       color: product.colors?.[0] || 'Default',
       size: product.sizes?.[0] || 'M',
       quantity: 1,
-      thumbnail: product.thumbnail
+      thumbnail: product.thumbnail,
+      imageUrl: product.imageUrl || product.thumbnail
     };
 
     this.cartService.addToCart(item);
