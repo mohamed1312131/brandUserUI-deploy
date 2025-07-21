@@ -4,11 +4,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { FrontService, ProductListDTO } from '../services/front.service';
 import { FormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-shop-list',
   standalone: true,
-  imports: [CommonModule, HttpClientModule, RouterModule, FormsModule],
+  imports: [CommonModule, HttpClientModule, RouterModule, FormsModule, MatIconModule, MatButtonModule],
   templateUrl: './shop-list.component.html',
   styleUrls: ['./shop-list.component.css']
 })
@@ -30,6 +32,9 @@ export class ShopListComponent implements OnInit {
   currentPage = 1;
   itemsPerPage = 10;
   totalPages = 1;
+
+  // Mobile filter sidebar
+  isMobileFilterOpen = false;
 
   private isProductLoaded = false;
   private pendingCategory: string | null = null;
@@ -123,6 +128,22 @@ export class ShopListComponent implements OnInit {
     this.currentPage = 1;
     this.filteredProducts = [...this.products];
     this.updatePagination();
+  }
+
+  // Mobile filter methods
+  openMobileFilter(): void {
+    this.isMobileFilterOpen = true;
+    document.body.classList.add('filter-open');
+  }
+
+  closeMobileFilter(): void {
+    this.isMobileFilterOpen = false;
+    document.body.classList.remove('filter-open');
+  }
+
+  applyAndCloseMobileFilter(): void {
+    this.applyFilters();
+    this.closeMobileFilter();
   }
 
   onCategoryChange() {
