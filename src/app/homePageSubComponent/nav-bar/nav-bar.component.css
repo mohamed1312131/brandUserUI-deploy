@@ -1,21 +1,11 @@
-.navbar {
-  background: linear-gradient(135deg, #1a1a2e, #16213e);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-  min-height: 80px;
-  z-index: 1030;
-}
-
+/* ================================== */
+/* General Navbar            */
+/* ================================== */
 .navbar-logo {
   width: 200px;
   height: 70px;
-  object-fit: contain;
+  object-fit: contain; /* Use contain to prevent logo distortion */
   object-position: center;
-  transition: all 0.3s ease;
-}
-
-.navbar-brand {
-  padding: 0;
 }
 
 .nav-link,
@@ -23,287 +13,183 @@
   cursor: pointer;
 }
 
-@media (min-width: 992px) {
-  .navbar-nav .nav-link {
-    color: #fff !important;
-    font-weight: 500;
-    padding: 0.5rem 1rem !important;
-    margin: 0 0.25rem;
-    border-radius: 8px;
-    font-size: 14px;
-    letter-spacing: 0.5px;
-  }
-
-  .navbar-nav .nav-link:hover,
-  .navbar-nav .nav-link.active {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #f8f9fa !important;
-    transform: translateY(-1px);
-  }
-
-  .dropdown-menu {
-    border: none;
-    border-radius: 12px;
-    padding: 0.5rem 0;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-    background: #fff;
-    margin-top: 0.5rem !important;
-    min-width: 220px;
-    animation: fadeInDown 0.3s ease-out;
-  }
-
-  .dropdown-item {
-    padding: 0.75rem 1.25rem;
-    font-size: 14px;
-    font-weight: 500;
-    color: #333 !important;
-    border-left: 3px solid transparent;
-  }
-
-  .dropdown-item:hover {
-    background: #f8f9fa;
-    color: #000 !important;
-    border-left-color: #007bff;
-    transform: translateX(3px);
-  }
-
-  .dropdown-toggle::after {
-    transition: transform 0.3s ease;
-  }
-
-  .dropdown:hover .dropdown-toggle::after {
-    transform: rotate(180deg);
-  }
-
-  @keyframes fadeInDown {
-    from {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+/* ================================== */
+/* Desktop Layout (lg+)        */
+/* ================================== */
+.nav-link.active,
+.nav-link:hover,
+.dropdown-toggle:hover {
+  color: #ddd; /* A subtle hover/active effect */
 }
 
-@media (min-width: 768px) and (max-width: 991.98px) {
-  .navbar-logo {
-    width: 160px;
-    height: 60px;
-  }
-
-  .navbar {
-    min-height: 75px;
-  }
-
-  .cart-text {
-    display: none;
-  }
+/* Desktop Dropdown Menu */
+.dropdown-menu {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 0;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.2s ease-in-out;
+  min-width: 200px;
+  background-color: #fff;
+  margin-top: 10px !important;
 }
 
-@media (max-width: 767.98px) {
+.dropdown-item {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333 !important;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.dropdown-item:hover {
+  background-color: #f3f4f6;
+  color: #000 !important;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ================================== */
+/* Mobile Layout (<lg)         */
+/* ================================== */
+@media (max-width: 991.98px) {
   .navbar-logo {
     width: 120px;
-    height: 45px;
+    height: 50px;
   }
 
-  .navbar {
-    min-height: 65px;
-    padding: 0.5rem 1rem;
+  /* Make mobile icons black as requested */
+  .mobile-menu-btn .menu-icon,
+  .cart-btn .cart-icon {
+    color: black;
   }
 }
 
-.cart-btn, 
-.mobile-menu-btn {
-  background: none;
-  border: none;
-  padding: 0.5rem;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  color: #fff;
-  transition: all 0.3s ease;
-}
-
-.cart-btn:hover, 
-.mobile-menu-btn:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  transform: translateY(-1px);
-}
-
-.cart-btn:focus, 
-.mobile-menu-btn:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
-}
-
+/* ================================== */
+/* Buttons, Icons & Badge      */
+/* ================================== */
 .navbar-toggler {
   border: none;
   padding: 0;
 }
-
 .navbar-toggler:focus {
   box-shadow: none;
 }
 
-.menu-icon, 
+.mobile-menu-btn,
+.cart-btn {
+  background: none;
+  border: none;
+  padding: 8px;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  color: white; /* Default color for desktop */
+}
+
+.mobile-menu-btn:focus,
+.cart-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+}
+
+.menu-icon,
 .cart-icon {
   font-size: 24px;
 }
 
 .cart-text {
   font-size: 14px;
-  font-weight: 600;
-  margin-left: 0.5rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-weight: 500;
 }
 
 .cart-badge {
   position: absolute;
-  top: -5px;
-  right: -5px;
-  background: linear-gradient(45deg, #ff4757, #ff3838);
+  top: 0;
+  right: 0;
+  background-color: #ff4757;
   color: white;
   border-radius: 50%;
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: pulse 2s infinite;
-  box-shadow: 0 2px 8px rgba(255, 71, 87, 0.4);
+  transform: translate(25%, -25%);
+  animation: pulse 0.3s ease-in-out;
 }
 
 @keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
+  0% { transform: translate(25%, -25%) scale(1); }
+  50% { transform: translate(25%, -25%) scale(1.2); }
+  100% { transform: translate(25%, -25%) scale(1); }
 }
 
-.offcanvas {
-  background: linear-gradient(135deg, #f8f9fa, #fff);
-}
-
+/* ================================== */
+/* Offcanvas (Mobile Menu)     */
+/* ================================== */
 .offcanvas-header {
-  border-bottom: 2px solid #e9ecef;
-  background: linear-gradient(135deg, #1a1a2e, #16213e);
-  color: #fff;
+  border-bottom: 1px solid #e9ecef;
 }
 
 .offcanvas-title {
-  font-weight: 700;
+  font-weight: 600;
   display: flex;
   align-items: center;
-  font-size: 1.25rem;
+  color: #212529;
+}
+
+.offcanvas .nav-link {
+  font-size: 16px;
+  font-weight: 500;
+  text-transform: none;
+  color: #212529 !important;
+  padding: 12px 16px;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+
+.offcanvas .nav-link:hover {
+  background-color: #f8f9fa;
+}
+
+.offcanvas-title mat-icon,
+.offcanvas-body mat-icon,
+.btn-close mat-icon {
+  color: #6c757d;
 }
 
 .btn-close {
-  background: none;
-  border: none;
-  color: #fff;
-  opacity: 1;
   padding: 0.5rem;
-  border-radius: 50%;
-  transition: all 0.3s ease;
 }
-
-.btn-close:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  transform: rotate(90deg);
-}
-
 .btn-close:focus {
   box-shadow: none;
 }
 
-.offcanvas .navbar-nav {
-  padding: 1rem 0;
-}
-
-.offcanvas .nav-link {
-  color: #333 !important;
-  font-weight: 500;
-  padding: 1rem 1.25rem !important;
-  margin: 0.25rem 0;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  font-size: 16px;
-  transition: all 0.3s ease;
-}
-
-.offcanvas .nav-link:hover {
-  background: linear-gradient(135deg, #007bff, #0056b3);
-  color: #fff !important;
-  transform: translateX(10px);
-  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
-}
-
-.offcanvas .nav-link mat-icon {
-  margin-right: 1rem;
-  font-size: 18px;
-  width: 20px;
-  text-align: center;
-}
-
 .mobile-category-section {
-  background: #f8f9fa;
-  border-radius: 12px;
-  padding: 1rem;
+  border-left: 3px solid #e9ecef;
+  padding-left: 1rem;
   margin: 1rem 0;
-  border-left: 4px solid #007bff;
 }
 
 .mobile-category-header {
-  font-weight: 700;
+  font-weight: 600;
   color: #495057;
-  font-size: 16px;
+  font-size: 1rem;
   display: flex;
   align-items: center;
-  margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid #dee2e6;
+  margin-bottom: 0.75rem;
 }
 
 .mobile-category-section .nav-link {
   font-size: 14px;
-  padding: 0.75rem 1rem !important;
-  margin: 0.25rem 0;
-  background: #fff;
-  border: 1px solid #e9ecef;
-}
-
-.mobile-category-section .nav-link:hover {
-  background: linear-gradient(135deg, #28a745, #20c997);
-}
-
-@media (max-width: 991.98px) {
-  .desktop-only {
-    display: none !important;
-  }
-}
-
-@media (min-width: 992px) {
-  .mobile-only {
-    display: none !important;
-    #offcanvasNavbar {
-      display: none !important;
-    }
-  }
-}
-
-* {
-  scroll-behavior: smooth;
-}
-
-.navbar-nav, 
-.dropdown-menu, 
-.offcanvas {
-  will-change: transform;
+  padding: 8px 12px;
 }
