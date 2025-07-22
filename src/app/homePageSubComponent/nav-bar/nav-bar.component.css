@@ -1,10 +1,10 @@
 /* ================================== */
-/* General Navbar            */
+/* General Navbar Styles             */
 /* ================================== */
 .navbar-logo {
   width: 200px;
   height: 70px;
-  object-fit: contain; /* Use contain to prevent logo distortion */
+  object-fit: contain;
   object-position: center;
 }
 
@@ -14,12 +14,26 @@
 }
 
 /* ================================== */
-/* Desktop Layout (lg+)        */
+/* Desktop Layout (lg+)               */
 /* ================================== */
+@media (min-width: 992px) {
+  /* Force hide mobile elements on desktop */
+  .mobile-menu-btn,
+  .offcanvas {
+    display: none !important;
+  }
+  
+  /* Ensure desktop navigation is visible */
+  .desktop-nav {
+    display: flex !important;
+  }
+}
+
+/* Desktop hover effects */
 .nav-link.active,
 .nav-link:hover,
 .dropdown-toggle:hover {
-  color: #ddd; /* A subtle hover/active effect */
+  color: #ddd;
 }
 
 /* Desktop Dropdown Menu */
@@ -53,7 +67,7 @@
 }
 
 /* ================================== */
-/* Mobile Layout (<lg)         */
+/* Mobile Layout (< 992px)            */
 /* ================================== */
 @media (max-width: 991.98px) {
   .navbar-logo {
@@ -61,20 +75,36 @@
     height: 50px;
   }
 
-  /* Make mobile icons black as requested */
+  /* Force hide desktop navigation on mobile */
+  .desktop-nav {
+    display: none !important;
+  }
+  
+  /* Ensure mobile elements are visible */
+  .mobile-header {
+    display: flex !important;
+  }
+
+  /* Make mobile icons black */
   .mobile-menu-btn .menu-icon,
   .cart-btn .cart-icon {
-    color: black;
+    color: black !important;
+  }
+  
+  /* Mobile-specific cart button styling */
+  .mobile-cart .cart-icon {
+    color: black !important;
   }
 }
 
 /* ================================== */
-/* Buttons, Icons & Badge      */
+/* Buttons, Icons & Badge             */
 /* ================================== */
 .navbar-toggler {
   border: none;
   padding: 0;
 }
+
 .navbar-toggler:focus {
   box-shadow: none;
 }
@@ -134,7 +164,7 @@
 }
 
 /* ================================== */
-/* Offcanvas (Mobile Menu)     */
+/* Offcanvas (Mobile Menu)            */
 /* ================================== */
 .offcanvas-header {
   border-bottom: 1px solid #e9ecef;
@@ -169,7 +199,10 @@
 
 .btn-close {
   padding: 0.5rem;
+  border: none;
+  background: none;
 }
+
 .btn-close:focus {
   box-shadow: none;
 }
@@ -192,4 +225,28 @@
 .mobile-category-section .nav-link {
   font-size: 14px;
   padding: 8px 12px;
+}
+
+/* ================================== */
+/* Additional Responsive Fixes        */
+/* ================================== */
+/* Ensure proper responsive behavior */
+@media (min-width: 992px) {
+  .d-lg-none {
+    display: none !important;
+  }
+  
+  .d-none.d-lg-flex {
+    display: flex !important;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .d-lg-none {
+    display: flex !important;
+  }
+  
+  .d-none.d-lg-flex {
+    display: none !important;
+  }
 }
