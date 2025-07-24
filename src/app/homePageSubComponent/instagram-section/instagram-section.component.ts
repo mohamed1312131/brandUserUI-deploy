@@ -20,6 +20,7 @@ import { environment } from '../../../environments/environment';
 })
 export class InstagramSectionComponent implements OnInit {
   instagramUrl: string = 'https://www.instagram.com'; // fallback
+  instagramImages: string[] = []; // 🆕 list of image URLs
   isBrowser: boolean;
 
   constructor(
@@ -34,9 +35,11 @@ export class InstagramSectionComponent implements OnInit {
       this.http.get<any>(`${environment.apiUrl}/website`).subscribe({
         next: (data) => {
           this.instagramUrl = data?.instagramUrl || this.instagramUrl;
+          this.instagramImages = data?.instagramUrls || [];
         },
-        error: (err) => console.error('Failed to fetch Instagram URL', err)
+        error: (err) => console.error('Failed to fetch Instagram data', err)
       });
     }
   }
 }
+
