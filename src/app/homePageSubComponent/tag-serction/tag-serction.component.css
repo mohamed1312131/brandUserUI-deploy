@@ -73,3 +73,25 @@
   text-align: left;
   color: white;
 }
+.icon-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  padding: 0.3rem;
+}
+
+.icon-arrow-left {
+  left: 10px;
+}
+
+.icon-arrow-right {
+  right: 10px;
+}
+
+.icon-arrow mat-icon {
+  color: white;
+}
