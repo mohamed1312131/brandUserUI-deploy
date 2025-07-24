@@ -1,7 +1,7 @@
 <section *ngIf="activeCategories.length > 0" class="categories full-width-container overflow-hidden">
   <!-- Swiper layout for 4+ categories -->
   <div *ngIf="activeCategories.length > 3; else staticLayout" class="position-relative">
-    <div class="swiper category-swiper">
+    <div class="swiper custom-category-swiper">
       <div class="swiper-wrapper">
         <div class="swiper-slide" *ngFor="let category of activeCategories">
           <div class="cat-item image-zoom-effect position-relative">
@@ -17,12 +17,14 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="swiper-button-prev category-prev icon-arrow icon-arrow-left">
-      <mat-icon style="font-size: 30px; width: 30px; height: 30px;">chevron_left</mat-icon>
-    </div>
-    <div class="swiper-button-next category-next icon-arrow icon-arrow-right">
-      <mat-icon style="font-size: 30px; width: 30px; height: 30px;">chevron_right</mat-icon>
+
+      <!-- Swiper Navigation Arrows -->
+      <div class="swiper-button-prev category-prev icon-arrow icon-arrow-left">
+        <mat-icon>chevron_left</mat-icon>
+      </div>
+      <div class="swiper-button-next category-next icon-arrow icon-arrow-right">
+        <mat-icon>chevron_right</mat-icon>
+      </div>
     </div>
   </div>
 

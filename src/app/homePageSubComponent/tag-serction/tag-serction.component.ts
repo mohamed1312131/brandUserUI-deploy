@@ -60,19 +60,19 @@ export class TagSerctionComponent implements OnInit, AfterViewInit {
 
   private initSwiperIfNeeded(): void {
     if (this.isBrowser && this.activeCategories.length > 3) {
-      new Swiper('.category-swiper', {
-        slidesPerView: 1,
-        spaceBetween: 20,
-        navigation: {
-          nextEl: '.category-next',
-          prevEl: '.category-prev'
-        },
-        breakpoints: {
-          576: { slidesPerView: 1.5 },
-          768: { slidesPerView: 2 },
-          992: { slidesPerView: 3 }
-        }
-      });
+      new Swiper('.custom-category-swiper', {
+  slidesPerView: 1,
+  spaceBetween: 20,
+  navigation: {
+    nextEl: '.category-next',
+    prevEl: '.category-prev'
+  },
+  breakpoints: {
+    576: { slidesPerView: 1.5 },
+    768: { slidesPerView: 2 },
+    992: { slidesPerView: 3 }
+  }
+});
     }
   }
 }
