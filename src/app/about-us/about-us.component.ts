@@ -3,11 +3,14 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { environment } from '../../environments/environment';
+import { LinebreaksPipe } from '../../linebreaks.pipe';
+
+
 
 @Component({
   selector: 'app-about-us',
   standalone: true,
-  imports: [CommonModule,RouterModule],
+  imports: [CommonModule, RouterModule, LinebreaksPipe],
   templateUrl: './about-us.component.html',
   styleUrls: ['./about-us.component.css']
 })

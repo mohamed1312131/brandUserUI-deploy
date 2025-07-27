@@ -23,7 +23,7 @@
         <div class="col-md-6">
           <div class="section-element p-5">
             <h2 class="element-title text-uppercase">{{ aboutTitle }}</h2>
-            <p>{{ aboutDescription }}</p>
+            <p [innerHTML]="aboutDescription | linebreaks"></p>
           </div>
         </div>
         <div class="col-md-6" *ngIf="aboutImageUrl">
