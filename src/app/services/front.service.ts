@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
@@ -79,8 +79,9 @@ export class FrontService {
       return this.http.get<ProductDetails>(`${this.BASE_URL}/${id}`);
     }
   placeOrder(payload: CheckoutPayload): Observable<any> {
-    return this.http.post(`${this.ORDER_URL}/place`, payload);
-  }
+  const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  return this.http.post(`${this.ORDER_URL}/place`, payload, { headers });
+}
   getActive(): Observable<Carousel[]> {
     return this.http.get<Carousel[]>(`${this.CAROUSEL_URL}/active`);
   }
