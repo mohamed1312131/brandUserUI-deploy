@@ -1,0 +1,15 @@
+.about-description {
+  white-space: pre-wrap; /* ensures line breaks and tabs are respected */
+  word-break: break-word;
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+.section-element {
+  max-width: 100%;
+}
+
+.image-holder img {
+  max-width: 100%;
+  height: auto;
+}

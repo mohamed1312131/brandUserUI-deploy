@@ -1,34 +1,19 @@
-<section class="hero-section jarallax">
-  <img src="../../assets/images/banner-large-4.jpg" class="jarallax-img" />
-  <div class="py-5">
-    <div class="container">
-      <div class="row">
-        <div class="d-flex flex-wrap flex-column justify-content-center align-items-center my-5 py-5 text-white">
-          <h1 class="page-title text-uppercase">À Propos</h1>
-          <nav class="breadcrumb text-white">
-            <a class="breadcrumb-item" [routerLink]="['/']">Accueil</a>
-            <a class="breadcrumb-item">Pages</a>
-            <span class="breadcrumb-item active" aria-current="page">À Propos</span>
-          </nav>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section id="about-us">
   <div class="vertical-element py-5">
     <div class="container">
-      <div class="row d-flex align-items-center justify-content-between">
+      <div class="row align-items-center">
+        <!-- Text Column -->
         <div class="col-md-6">
-          <div class="section-element p-5">
+          <div class="section-element p-4">
             <h2 class="element-title text-uppercase">{{ aboutTitle }}</h2>
-            <p [innerHTML]="aboutDescription | linebreaks"></p>
+            <p class="about-description" [innerHTML]="aboutDescription | linebreaks"></p>
           </div>
         </div>
+
+        <!-- Image Column -->
         <div class="col-md-6" *ngIf="aboutImageUrl">
-          <div class="image-holder text-right">
-            <img [src]="aboutImageUrl" alt="About Us" class="img-fluid" />
+          <div class="image-holder text-center text-md-end p-4">
+            <img [src]="aboutImageUrl" alt="About Us" class="img-fluid rounded" />
           </div>
         </div>
       </div>
