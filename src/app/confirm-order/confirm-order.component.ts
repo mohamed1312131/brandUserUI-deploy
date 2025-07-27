@@ -4,11 +4,12 @@ import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { CartItem, CartService } from '../services/cartService';
 import { CheckoutPayload, FrontService } from '../services/front.service';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-confirm-order',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule,RouterModule],
+  imports: [CommonModule, ReactiveFormsModule,RouterModule,MatSnackBarModule],
   templateUrl: './confirm-order.component.html',
   styleUrl: './confirm-order.component.css'
 })
@@ -22,7 +23,8 @@ export class ConfirmOrderComponent implements OnInit {
     private cartService: CartService,
     private checkoutService: FrontService,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -100,8 +102,15 @@ export class ConfirmOrderComponent implements OnInit {
 
     this.checkoutService.placeOrder(payload).subscribe({
       next: response => {
+        
         console.log('Order placed:', response);
         this.cartService.clearCart();
+        this.snackBar.open('🎉 Merci pour votre commande ! Nous vous contacterons sous peu.', 'Fermer', {
+  duration: 6000,
+  panelClass: ['custom-toast'],
+  verticalPosition: 'top',
+  horizontalPosition: 'right'
+});
         this.router.navigate(['/']);
       },
       error: err => {
