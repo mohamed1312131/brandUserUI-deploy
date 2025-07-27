@@ -25,6 +25,12 @@ export class FooterComponent implements OnInit {
   description: string = '';
   email: string = '';
   isBrowser: boolean;
+  facebookUrl: string = '';
+youtubeUrl: string = '';
+pinterestUrl: string = '';
+threadsUrl: string = '';
+instagramUrl: string = '';
+
 
   constructor(
     private http: HttpClient,
@@ -34,15 +40,21 @@ export class FooterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.isBrowser) {
-      this.http.get<any>(`${environment.apiUrl}/website`).subscribe({
-        next: (data) => {
-          this.logoUrl = data?.logoUrl || '';
-          this.description = data?.description || '';
-          this.email = data?.email || '';
-        },
-        error: (err) => console.error('Failed to load website info for footer', err)
-      });
-    }
+  if (this.isBrowser) {
+    this.http.get<any>(`${environment.apiUrl}/website`).subscribe({
+      next: (data) => {
+        this.logoUrl = data?.logoUrl || '';
+        this.description = data?.description || '';
+        this.email = data?.email || '';
+        this.facebookUrl = data?.facebookUrl || '';
+        this.youtubeUrl = data?.youtubeUrl || '';
+        this.pinterestUrl = data?.pinterestUrl || '';
+        this.threadsUrl = data?.threadsUrl || '';
+        this.instagramUrl = data?.instagramUrl || '';
+      },
+      error: (err) => console.error('Failed to load website info for footer', err)
+    });
   }
+}
+
 }

@@ -13,13 +13,33 @@
           <p>{{ description }}</p>
           <div class="social-links">
             <ul class="list-unstyled d-flex flex-wrap gap-3">
-              <!-- Social icons remain unchanged -->
-              <li><a href="#" class="text-secondary"><mat-icon>facebook</mat-icon></a></li>
-              <li><a href="#" class="text-secondary"><mat-icon>alternate_email</mat-icon></a></li>
-              <li><a href="#" class="text-secondary"><mat-icon>play_circle</mat-icon></a></li>
-              <li><a href="#" class="text-secondary"><mat-icon>push_pin</mat-icon></a></li>
-              <li><a href="#" class="text-secondary"><mat-icon>camera_alt</mat-icon></a></li>
-            </ul>
+  <li *ngIf="facebookUrl">
+    <a [href]="facebookUrl" target="_blank" class="text-secondary">
+      <mat-icon>facebook</mat-icon>
+    </a>
+  </li>
+  <li *ngIf="instagramUrl">
+    <a [href]="instagramUrl" target="_blank" class="text-secondary">
+      <mat-icon>camera_alt</mat-icon>
+    </a>
+  </li>
+  <li *ngIf="youtubeUrl">
+    <a [href]="youtubeUrl" target="_blank" class="text-secondary">
+      <mat-icon>play_circle</mat-icon>
+    </a>
+  </li>
+  <li *ngIf="pinterestUrl">
+    <a [href]="pinterestUrl" target="_blank" class="text-secondary">
+      <mat-icon>push_pin</mat-icon>
+    </a>
+  </li>
+  <li *ngIf="threadsUrl">
+    <a [href]="threadsUrl" target="_blank" class="text-secondary">
+      <mat-icon>alternate_email</mat-icon>
+    </a>
+  </li>
+</ul>
+
           </div>
         </div>
       </div>
