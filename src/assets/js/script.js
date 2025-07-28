@@ -29,7 +29,7 @@
     });
 
     // swiper slider home 2
-    var swiper = new Swiper(".slideshow", {
+   /* var swiper = new Swiper(".slideshow", {
       slidesPerView: 1,
       spaceBetween: 0,
       speed: 1000,
@@ -38,7 +38,7 @@
         nextEl: '.icon-arrow-right',
         prevEl: '.icon-arrow-left',
       }
-    });
+    }); */
 
     // two colum swiper slide
     var swiper = new Swiper(".two-column-swiper .swiper", {

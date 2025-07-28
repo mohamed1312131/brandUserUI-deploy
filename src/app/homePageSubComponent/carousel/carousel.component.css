@@ -68,3 +68,12 @@
 .icon-arrow mat-icon {
   color: white !important;
 }
+
+.icon-arrow {
+  z-index: 100;
+  pointer-events: auto; /* ensure it's clickable */
+}
+
+.icon-arrow mat-icon {
+  cursor: pointer;
+}

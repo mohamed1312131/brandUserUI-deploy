@@ -46,19 +46,23 @@ export class CarouselComponent implements OnInit, AfterViewInit {
     }
   }
 
-  ngAfterViewInit(): void {
-    if (!this.isBrowser) return;
+ ngAfterViewInit(): void {
+  if (!this.isBrowser) return;
 
-    const interval = setInterval(() => {
-      const wrapper = this.swiperWrapper?.nativeElement;
-      const slides = wrapper?.querySelectorAll('.swiper-slide') || [];
+  const waitForRender = setInterval(() => {
+    const wrapper = this.swiperWrapper?.nativeElement;
+    const slides = wrapper?.querySelectorAll('.swiper-slide') || [];
+    const arrowsReady =
+      document.querySelector('.icon-arrow-left') &&
+      document.querySelector('.icon-arrow-right');
 
-      if (slides.length > 0) {
-        clearInterval(interval);
-        this.initSwiper();
-      }
-    }, 100);
-  }
+    if (slides.length > 0 && arrowsReady) {
+      clearInterval(waitForRender);
+      this.initSwiper();
+    }
+  }, 100);
+}
+
 
   initSwiper(): void {
     if (!this.isBrowser || !this.carousels.length) return;
@@ -68,16 +72,11 @@ export class CarouselComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    this.swiper = new Swiper('.slideshow', {
-      loop: true,
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true
-      },
-      navigation: {
-        nextEl: '.icon-arrow-right',
-        prevEl: '.icon-arrow-left'
-      }
-    });
+    this.swiper = new Swiper('.angular-slideshow', {
+  navigation: {
+    nextEl: '.icon-arrow-right',
+    prevEl: '.icon-arrow-left',
+  }
+});
   }
 }
