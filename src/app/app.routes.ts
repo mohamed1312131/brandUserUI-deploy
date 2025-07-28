@@ -8,6 +8,7 @@ import { ConfirmOrderComponent } from './confirm-order/confirm-order.component';
 import { FAQComponent } from './homePageSubComponent/faq/faq.component';
 import { ContactUsComponent } from './homePageSubComponent/contact-us/contact-us.component';
 import { AboutUsComponent } from './about-us/about-us.component';
+import { ThankYouComponent } from './homePageSubComponent/thank-you/thank-you.component';
 
 export const routes: Routes = [
   {
@@ -45,6 +46,10 @@ export const routes: Routes = [
       {
         path:'about',
         component: AboutUsComponent
+      },
+      {
+        path: 'thank-you',
+        component:ThankYouComponent
       },
 
       {

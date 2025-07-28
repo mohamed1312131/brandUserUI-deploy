@@ -102,34 +102,14 @@ export class ConfirmOrderComponent implements OnInit {
 
     this.checkoutService.placeOrder(payload).subscribe({
       next: response => {
-        console.log('Order placed:', response);
         this.cartService.clearCart();
 
-        // 1. Open the snackbar and keep a reference to it
-        const snackBarRef = this.snackBar.open(
-          '🎉 Commande validée ! Redirection en cours...', 
-          'OK', 
-          {
-            duration: 5000, // Show for 5 seconds as requested
-            panelClass: ['modern-toast'],
-            verticalPosition: 'top',
-            horizontalPosition: 'center' // Centered feels more modern
-          }
-        );
-
         // 2. Navigate ONLY after the toast is dismissed (either by timer or click)
-        snackBarRef.afterDismissed().subscribe(() => {
-          this.router.navigate(['/']);
-        });
+        
+          this.router.navigate(['/thank-you']);
+        
       },
       error: err => {
-        console.error('Failed to place order', err);
-        this.snackBar.open('❌ Une erreur est survenue. Veuillez réessayer.', 'Fermer', {
-          duration: 5000,
-          panelClass: ['error-toast'],
-          verticalPosition: 'top',
-          horizontalPosition: 'center'
-        });
         this.isSubmitting = false;
       }
     });
