@@ -1,30 +1,21 @@
 <section *ngIf="activeCategories.length > 0" class="categories full-width-container overflow-hidden">
-  <!-- Swiper layout for 4+ categories -->
-  <div *ngIf="activeCategories.length > 3; else staticLayout" class="position-relative">
-    <div class="swiper tag-swiper">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide" *ngFor="let category of activeCategories">
-          <div class="cat-item image-zoom-effect position-relative">
-            <div class="image-holder">
-              <a [routerLink]="['/shop']" [queryParams]="{ category: category.name }">
-                <img [src]="category.imageUrl" alt="category image" class="product-image img-fluid" />
-              </a>
-              <div class="category-content text-uppercase">
-                <h4 class="text-white">{{ category.name }}</h4>
-                <a [routerLink]="['/shop']" class="text-white btn-link">Shop it Now</a>
-              </div>
-            </div>
-          </div>
-        </div>
+  <!-- Auto Slider -->
+  <div *ngIf="activeCategories.length > 3; else staticLayout" class="position-relative slideshow">
+    <div *ngFor="let category of activeCategories; let i = index"
+         class="slide"
+         [class.active]="isActive(i)"
+         [ngStyle]="{ 'background-image': 'url(' + category.imageUrl + ')' }">
+      <div class="category-content text-uppercase">
+        <h4 class="text-white">{{ category.name }}</h4>
+        <a [routerLink]="['/shop']" [queryParams]="{ category: category.name }" class="text-white btn-link">Shop it Now</a>
       </div>
     </div>
 
-    <!-- Swiper Arrows OUTSIDE swiper container -->
-    <div class="icon-arrow icon-arrow-left">
-      <mat-icon style="font-size: 50px; width: 50px; height: 50px;">chevron_left</mat-icon>
+    <div class="icon-arrow icon-arrow-left" (click)="prevSlide()">
+      <mat-icon>chevron_left</mat-icon>
     </div>
-    <div class="icon-arrow icon-arrow-right">
-      <mat-icon style="font-size: 50px; width: 50px; height: 50px;">chevron_right</mat-icon>
+    <div class="icon-arrow icon-arrow-right" (click)="nextSlide()">
+      <mat-icon>chevron_right</mat-icon>
     </div>
   </div>
 

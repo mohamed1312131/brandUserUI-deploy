@@ -1,9 +1,9 @@
 import {
   Component,
   OnInit,
-  AfterViewInit,
   Inject,
-  PLATFORM_ID
+  PLATFORM_ID,
+  OnDestroy
 } from '@angular/core';
 import {
   CommonModule,
@@ -11,10 +11,8 @@ import {
 } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import Swiper from 'swiper';
-import 'swiper/css';
-import * as AOS from 'aos';
 import { MatIconModule } from '@angular/material/icon';
+import * as AOS from 'aos';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -24,9 +22,11 @@ import { environment } from '../../../environments/environment';
   templateUrl: './tag-serction.component.html',
   styleUrls: ['./tag-serction.component.css']
 })
-export class TagSerctionComponent implements OnInit, AfterViewInit {
+export class TagSerctionComponent implements OnInit, OnDestroy {
   activeCategories: any[] = [];
   isBrowser: boolean;
+  currentIndex = 0;
+  autoSlideInterval: any;
 
   constructor(
     private http: HttpClient,
@@ -40,39 +40,36 @@ export class TagSerctionComponent implements OnInit, AfterViewInit {
       this.http.get<any[]>(`${environment.apiUrl}/categories/active`).subscribe({
         next: (data) => {
           this.activeCategories = data;
-
-          setTimeout(() => {
-            this.initSwiperIfNeeded();
-            AOS.init({ once: true, duration: 800 });
-            AOS.refresh();
-          }, 0);
+          AOS.init({ once: true, duration: 800 });
+          this.startAutoSlide();
         },
         error: (err) => console.error('Failed to fetch active categories', err)
       });
     }
   }
 
-  ngAfterViewInit(): void {
-    if (this.isBrowser) {
-      AOS.refresh();
+  ngOnDestroy(): void {
+    clearInterval(this.autoSlideInterval);
+  }
+
+  startAutoSlide(): void {
+    if (this.activeCategories.length > 3) {
+      this.autoSlideInterval = setInterval(() => {
+        this.nextSlide();
+      }, 5000);
     }
   }
 
-  private initSwiperIfNeeded(): void {
-    if (this.isBrowser && this.activeCategories.length > 3) {
-      new Swiper('.tag-swiper', {
-        slidesPerView: 1,
-        spaceBetween: 20,
-        navigation: {
-          nextEl: '.icon-arrow-right',
-          prevEl: '.icon-arrow-left'
-        },
-        breakpoints: {
-          576: { slidesPerView: 1.5 },
-          768: { slidesPerView: 2 },
-          992: { slidesPerView: 3 }
-        }
-      });
-    }
+  nextSlide(): void {
+    this.currentIndex = (this.currentIndex + 1) % this.activeCategories.length;
+  }
+
+  prevSlide(): void {
+    this.currentIndex =
+      (this.currentIndex - 1 + this.activeCategories.length) % this.activeCategories.length;
+  }
+
+  isActive(index: number): boolean {
+    return index === this.currentIndex;
   }
 }

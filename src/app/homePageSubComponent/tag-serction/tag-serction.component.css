@@ -1,67 +1,31 @@
-/* Swiper arrows (desktop + mobile) */
-.icon-arrow {
+/* Auto slider styles */
+.slideshow {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+}
+
+.slide {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 10;
-  cursor: pointer;
-  background-color: rgba(0, 0, 0, 0.5);
-  border-radius: 50%;
-  padding: 0.3rem;
-}
-
-.icon-arrow mat-icon {
-  font-size: 30px;
-  color: white;
-}
-
-.icon-arrow-left {
-  left: 10px;
-}
-
-.icon-arrow-right {
-  right: 10px;
-}
-
-/* Make arrows visible on all screen sizes */
-.swiper-button-next,
-.swiper-button-prev,
-.icon-arrow {
-  display: block !important;
-}
-
-/* Category card layout */
-.cat-item {
-  height: 100%;
-  min-height: 400px;
-  max-height: 400px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  position: relative;
-  overflow: hidden;
-  border-radius: 8px;
-}
-
-.image-holder {
-  position: relative;
+  top: 0;
+  left: 100%;
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: all 0.8s ease-in-out;
 }
 
-.image-holder img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.4s ease;
+.slide.active {
+  left: 0;
+  opacity: 1;
+  z-index: 1;
 }
 
-.image-zoom-effect:hover img {
-  transform: scale(1.05);
-}
-
+/* Category content on slide */
 .category-content {
   position: absolute;
   bottom: 0;
@@ -72,12 +36,15 @@
   backdrop-filter: blur(2px);
   text-align: left;
   color: white;
+  z-index: 2;
 }
+
+/* Navigation arrows */
 .icon-arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 10;
+  z-index: 100;
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 50%;
@@ -93,5 +60,6 @@
 }
 
 .icon-arrow mat-icon {
+  font-size: 40px;
   color: white;
 }
