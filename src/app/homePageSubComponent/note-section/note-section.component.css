@@ -1,0 +1,31 @@
+/* Default desktop layout – no changes needed */
+
+/* Mobile-specific styles */
+@media (max-width: 767.98px) {
+  .collection-item {
+    text-align: center;
+    padding: 1.5rem;
+  }
+
+  .collection-item .col-md-6 {
+    width: 100%;
+  }
+
+  .collection-item .col-md-8 {
+    width: 100%;
+  }
+
+  .element-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .collection-item p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .collection-item .btn {
+    margin-top: 1rem;
+  }
+}
