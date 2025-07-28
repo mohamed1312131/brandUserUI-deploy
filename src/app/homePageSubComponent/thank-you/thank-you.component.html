@@ -1,0 +1,11 @@
+<div class="thank-you-page content-light d-flex align-items-center text-white" style="height: 100vh; position: relative;">
+  <img *ngIf="firstImageUrl" [src]="firstImageUrl" alt="Carousel Image" class="background-img" style="object-fit: cover; width: 100%; height: 100%; position: absolute; top: 0; left: 0;" />
+  <div class="container" style="position: relative; z-index: 1;">
+    <div class="text-center">
+      <h1>Thank You!</h1>
+      <p>Your submission has been received.</p>
+      <div class="btn-center">
+        <a routerLink="/" class="btn btn-light btn-large text-uppercase">Go back to home</a>
+      </div>
+    </div>
+  </div>
