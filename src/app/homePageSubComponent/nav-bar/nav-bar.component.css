@@ -254,3 +254,27 @@
 .cart-text {
   transition: color 0.3s ease !important;
 }
+/* Navbar scroll behavior fix */
+.navbar {
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Default: white links at top */
+.nav-link,
+.nav-link.active,
+.cart-text {
+  color: white !important;
+  transition: color 0.3s ease;
+}
+
+/* On scroll: darker navbar and darker links */
+.navbar.scrolled {
+  background-color: white !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar.scrolled .nav-link,
+.navbar.scrolled .nav-link.active,
+.navbar.scrolled .cart-text {
+  color: #212529 !important;
+}

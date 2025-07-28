@@ -80,15 +80,12 @@ ngAfterViewInit(): void {
     window.addEventListener('scroll', () => {
       const navbar = document.querySelector('.navbar');
       if (navbar) {
-        if (window.scrollY > 50) {
-          navbar.classList.add('scrolled');
-        } else {
-          navbar.classList.remove('scrolled');
-        }
+        navbar.classList.toggle('scrolled', window.scrollY > 20);
       }
     });
   }
 }
+
 
 
   goToCategory(category: string): void {
