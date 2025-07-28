@@ -250,3 +250,7 @@
     display: none !important;
   }
 }
+.nav-link,
+.cart-text {
+  transition: color 0.3s ease !important;
+}
