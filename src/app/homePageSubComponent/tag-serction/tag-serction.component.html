@@ -1,13 +1,19 @@
 <section *ngIf="activeCategories.length > 0" class="categories full-width-container overflow-hidden">
-  <!-- Auto Slider -->
-  <div *ngIf="activeCategories.length > 3; else staticLayout" class="position-relative slideshow">
-    <div *ngFor="let category of activeCategories; let i = index"
-         class="slide"
-         [class.active]="isActive(i)"
-         [ngStyle]="{ 'background-image': 'url(' + category.imageUrl + ')' }">
-      <div class="category-content text-uppercase">
-        <h4 class="text-white">{{ category.name }}</h4>
-        <a [routerLink]="['/shop']" [queryParams]="{ category: category.name }" class="text-white btn-link">Shop it Now</a>
+  <!-- Slider Layout for 4+ categories -->
+  <div *ngIf="activeCategories.length > 3; else staticLayout" class="position-relative">
+    <div class="row gx-3">
+      <div class="col-md-3" *ngFor="let category of visibleCategories">
+        <div class="cat-item image-zoom-effect position-relative w-100 h-100">
+          <div class="image-holder">
+            <a [routerLink]="['/shop']" [queryParams]="{ category: category.name }">
+              <img [src]="category.imageUrl" alt="category image" class="product-image img-fluid w-100" />
+            </a>
+            <div class="category-content text-uppercase">
+              <h4 class="text-white">{{ category.name }}</h4>
+              <a [routerLink]="['/shop']" class="text-white btn-link">Shop it Now</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 

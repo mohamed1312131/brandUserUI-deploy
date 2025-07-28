@@ -26,6 +26,7 @@ export class TagSerctionComponent implements OnInit, OnDestroy {
   activeCategories: any[] = [];
   isBrowser: boolean;
   currentIndex = 0;
+  itemsPerSlide = 4;
   autoSlideInterval: any;
 
   constructor(
@@ -41,7 +42,7 @@ export class TagSerctionComponent implements OnInit, OnDestroy {
         next: (data) => {
           this.activeCategories = data;
           AOS.init({ once: true, duration: 800 });
-          this.startAutoSlide();
+          if (data.length > this.itemsPerSlide) this.startAutoSlide();
         },
         error: (err) => console.error('Failed to fetch active categories', err)
       });
@@ -53,23 +54,23 @@ export class TagSerctionComponent implements OnInit, OnDestroy {
   }
 
   startAutoSlide(): void {
-    if (this.activeCategories.length > 3) {
-      this.autoSlideInterval = setInterval(() => {
-        this.nextSlide();
-      }, 5000);
-    }
+    this.autoSlideInterval = setInterval(() => {
+      this.nextSlide();
+    }, 5000);
   }
 
   nextSlide(): void {
-    this.currentIndex = (this.currentIndex + 1) % this.activeCategories.length;
+    const maxIndex = Math.ceil(this.activeCategories.length / this.itemsPerSlide);
+    this.currentIndex = (this.currentIndex + 1) % maxIndex;
   }
 
   prevSlide(): void {
-    this.currentIndex =
-      (this.currentIndex - 1 + this.activeCategories.length) % this.activeCategories.length;
+    const maxIndex = Math.ceil(this.activeCategories.length / this.itemsPerSlide);
+    this.currentIndex = (this.currentIndex - 1 + maxIndex) % maxIndex;
   }
 
-  isActive(index: number): boolean {
-    return index === this.currentIndex;
+  get visibleCategories(): any[] {
+    const start = this.currentIndex * this.itemsPerSlide;
+    return this.activeCategories.slice(start, start + this.itemsPerSlide);
   }
 }
