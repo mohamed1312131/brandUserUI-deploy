@@ -2,7 +2,8 @@ import {
   Component,
   OnInit,
   Inject,
-  PLATFORM_ID
+  PLATFORM_ID,
+  OnDestroy
 } from '@angular/core';
 import {
   CommonModule,
@@ -12,11 +13,6 @@ import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { FrontService, Carousel } from '../../services/front.service';
 
-import Swiper from 'swiper';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-
 @Component({
   selector: 'app-carousel',
   standalone: true,
@@ -24,8 +20,10 @@ import 'swiper/css/pagination';
   templateUrl: './carousel.component.html',
   styleUrl: './carousel.component.css'
 })
-export class CarouselComponent implements OnInit {
+export class CarouselComponent implements OnInit, OnDestroy {
   carousels: Carousel[] = [];
+  currentIndex = 0;
+  intervalId: any;
   isBrowser: boolean;
 
   constructor(
@@ -41,23 +39,33 @@ export class CarouselComponent implements OnInit {
     this.carouselService.getActive().subscribe({
       next: (data) => {
         this.carousels = data;
-
-        setTimeout(() => {
-          new Swiper('.carousel-swiper', {
-            loop: true,
-            speed: 1000,
-            pagination: {
-              el: '.carousel-swiper-pagination',
-              clickable: true
-            },
-            navigation: {
-              nextEl: '.carousel-arrow-right',
-              prevEl: '.carousel-arrow-left'
-            }
-          });
-        }, 0);
+        this.startAutoSlide();
       },
       error: (err) => console.error('Error loading carousel', err)
     });
+  }
+
+  startAutoSlide(): void {
+    this.intervalId = setInterval(() => {
+      this.currentIndex = (this.currentIndex + 1) % this.carousels.length;
+    }, 5000);
+  }
+
+  ngOnDestroy(): void {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
+  }
+
+  goToSlide(index: number): void {
+    this.currentIndex = index;
+  }
+
+  prev(): void {
+    this.currentIndex = (this.currentIndex - 1 + this.carousels.length) % this.carousels.length;
+  }
+
+  next(): void {
+    this.currentIndex = (this.currentIndex + 1) % this.carousels.length;
   }
 }

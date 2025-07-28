@@ -1,19 +1,18 @@
-<section class="text-white">
-  <div class="swiper carousel-swiper slide-in" style="height: 100vh;" *ngIf="carousels.length > 0">
-    <div class="swiper-wrapper">
-      <div
-        class="swiper-slide d-flex align-items-center"
-        *ngFor="let item of carousels"
-        [style.backgroundImage]="'url(' + item.imageUrl + ')'">
-        <div class="banner-content w-100">
-          <div class="container">
-            <div class="row">
-              <div class="col-md-6 offset-md-6">
-                <h2 class="display-1 text-uppercase mt-5 pt-5">{{ item.title }}</h2>
-                <p class="caption">{{ item.description }}</p>
-                <div class="btn-left btn-swiper">
-                  <a [routerLink]="['/shop']" class="btn btn-light text-uppercase mt-3">Voir Collection</a>
-                </div>
+<section class="text-white" *ngIf="carousels.length > 0">
+  <div class="slideshow" style="height: 100vh;">
+    <div
+      class="slide d-flex align-items-center"
+      *ngFor="let item of carousels; let i = index"
+      [class.active]="i === currentIndex"
+      [style.backgroundImage]="'url(' + item.imageUrl + ')'">
+      <div class="banner-content w-100">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 offset-md-6">
+              <h2 class="display-1 text-uppercase mt-5 pt-5">{{ item.title }}</h2>
+              <p class="caption">{{ item.description }}</p>
+              <div class="btn-left btn-swiper">
+                <a [routerLink]="['/shop']" class="btn btn-light text-uppercase mt-3">Voir Collection</a>
               </div>
             </div>
           </div>
@@ -21,13 +20,11 @@
       </div>
     </div>
 
-    <div class="swiper-pagination carousel-swiper-pagination"></div>
-
-    <div class="icon-arrow icon-arrow-left carousel-arrow-left text-white">
-      <mat-icon style="font-size: 50px; width: 50px; height: 50px;">chevron_left</mat-icon>
+    <div class="icon-arrow icon-arrow-left text-white" (click)="prev()">
+      <mat-icon style="font-size: 50px;">chevron_left</mat-icon>
     </div>
-    <div class="icon-arrow icon-arrow-right carousel-arrow-right text-white">
-      <mat-icon style="font-size: 50px; width: 50px; height: 50px;">chevron_right</mat-icon>
+    <div class="icon-arrow icon-arrow-right text-white" (click)="next()">
+      <mat-icon style="font-size: 50px;">chevron_right</mat-icon>
     </div>
   </div>
 </section>
