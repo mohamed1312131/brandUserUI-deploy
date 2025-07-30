@@ -42,9 +42,16 @@ export class HomePageComponent implements OnInit {
   private http = inject(HttpClient);
   private platformId = inject(PLATFORM_ID);
 
+  showOurService = true;
+
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       this.http.post(`${environment.apiUrl}/orders/track`, {}).subscribe();
+
+      // Detect screen width to hide app-our-service on mobile
+      const screenWidth = window.innerWidth;
+      this.showOurService = screenWidth >= 768; // 768px and above = not mobile
     }
   }
 }
+
