@@ -41,7 +41,6 @@
                     </svg>
                   </div>
                 </ng-container>
-                
               </div>
             </div>
 
@@ -55,7 +54,7 @@
             <!-- Color Selector -->
             <div class="color-product-options mt-4" *ngIf="product.variants && product.variants.length > 1">
               <div class="color-toggle">
-                <div class="item-title">Couleur:</div>
+                <div class="item-title">Color:</div>
                 <div class="color-options d-flex">
                   <div *ngFor="let variant of product.variants; trackBy: trackByVariant" 
                        class="color-item" 
@@ -74,7 +73,7 @@
 
             <!-- Size Selector -->
             <div class="swatch d-flex flex-wrap option-1 mt-4" *ngIf="selectedVariant?.sizes?.length">
-              <div class="item-title">Taille:</div>
+              <div class="item-title">Size:</div>
               <ng-container *ngFor="let size of selectedVariant?.sizes; trackBy: trackBySize">
                 <div class="swatch-element">
                   <input class="swatch-input hide" 
@@ -95,27 +94,27 @@
 
             <div class="product-action mt-4">
               <div class="item-title" *ngIf="selectedVariant?.sizes?.length">
-                {{ getTotalStock() }} en stock
+                {{ getTotalStock() }} in stock
               </div>
               <div class="product-quantity d-flex flex-wrap">
                 <div class="input-group product-qty me-3" style="max-width: 150px;">
                   <span class="input-group-btn">
                     <button type="button" class="quantity-left-minus btn btn-light btn-number"
-        (click)="decreaseQuantity()">
-  <mat-icon>remove</mat-icon>
-</button>
+                      (click)="decreaseQuantity()">
+                      <mat-icon>remove</mat-icon>
+                    </button>
                   </span>
                   <input type="number" [(ngModel)]="quantity" min="1" max="100" class="form-control input-number text-center">
                   <span class="input-group-btn">
                     <button type="button" class="quantity-right-plus btn btn-light btn-number"
-        (click)="increaseQuantity()">
-  <mat-icon>add</mat-icon>
-</button>
+                      (click)="increaseQuantity()">
+                      <mat-icon>add</mat-icon>
+                    </button>
                   </span>
                 </div>
                 <button type="button" class="btn btn-dark product-cart-submit btn-lg text-uppercase me-3"
-        (click)="addToCart()">
-                  <span>Ajouter au panier</span>
+                  (click)="addToCart()">
+                  <span>Add to Cart</span>
                 </button>
               </div>
             </div>
@@ -125,6 +124,8 @@
       </div>
     </div>
   </section>
+
+  <!-- Product Description Tabs (previously translated) -->
   <app-product-description [additionalInfo]="product?.additionalInfo" [sizeGuide]="product?.sizeGuide"></app-product-description>
 
 </main>

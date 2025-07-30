@@ -1,12 +1,12 @@
 <section class="instagram py-5">
   <div class="container">
     <div class="row g-3">
-      <h6 class="element-title text-center">Follow us on Instagram</h6>
+      <h6 class="element-title text-center text-uppercase">Follow Us on Instagram</h6>
 
       <div class="col-6 col-sm-4 col-md-2" *ngFor="let image of instagramImages">
         <div class="insta-item">
-          <a [href]="instagramUrl" target="_blank">
-            <img [src]="image" alt="instagram" class="insta-image img-fluid" />
+          <a [href]="instagramUrl" target="_blank" rel="noopener">
+            <img [src]="image" alt="Instagram post" class="insta-image img-fluid" />
           </a>
         </div>
       </div>

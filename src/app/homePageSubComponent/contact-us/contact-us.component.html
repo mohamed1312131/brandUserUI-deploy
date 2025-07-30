@@ -2,58 +2,53 @@
   <div class="container">
     <div class="row">
       <div class="contact-info col-md-6">
-        <h2 class="fs-3 text-uppercase">Informations de Contact</h2>
-       
+        <h2 class="fs-3 text-uppercase">Contact Information</h2>
+
         <div class="page-content row">
           <div class="col-md-6">
             <div class="content-box">
-              <h5 class="element-title text-uppercase">Bureau Principal</h5>
+              <h5 class="element-title text-uppercase">Head Office</h5>
               <div class="contact-address">
                 <p>{{ location }}</p>
               </div>
               <div class="contact-number">
                 <p>
-    <a [href]="'tel:' + phone">{{ phone }}</a>
-  </p>
+                  <a [href]="'tel:' + phone">{{ phone }}</a>
+                </p>
               </div>
               <div class="email-address">
                 <p>
-    <a [href]="'mailto:' + email">{{ email }}</a>
-  </p>
+                  <a [href]="'mailto:' + email">{{ email }}</a>
+                </p>
               </div>
             </div>
           </div>
-
-
-
-          
         </div>
       </div>
 
       <div class="inquiry-item col-md-6">
-        <h2 class="fs-3 text-uppercase">Avez-vous des questions?</h2>
-        <p>Utilisez le formulaire ci-dessous pour nous contacter.</p>
+        <h2 class="fs-3 text-uppercase">Do You Have Any Questions?</h2>
+        <p>Use the form below to get in touch with us.</p>
         <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="form-group flex-wrap">
-  <div class="form-input col-lg-12 d-flex mb-3">
-    <input type="text" formControlName="name" placeholder="Écrivez votre nom ici" class="form-control ps-3 me-3">
-    <input type="email" formControlName="email" placeholder="Écrivez votre email ici" class="form-control ps-3">
-  </div>
-  <div class="col-lg-12 mb-3">
-    <input type="text" formControlName="phone" placeholder="Numéro de téléphone" class="form-control ps-3">
-  </div>
-  <div class="col-lg-12 mb-3">
-    <input type="text" formControlName="subject" placeholder="Écrivez votre sujet ici" class="form-control ps-3">
-  </div>
-  <div class="col-lg-12 mb-3">
-    <textarea formControlName="message" placeholder="Écrivez votre message ici" class="form-control ps-3" rows="8"></textarea>
-  </div>
-  <div class="d-grid">
-    <button type="submit" class="btn btn-primary btn-lg text-uppercase btn-rounded-none" [disabled]="contactForm.invalid">
-      Envoyer
-    </button>
-  </div>
-</form>
-
+          <div class="form-input col-lg-12 d-flex mb-3">
+            <input type="text" formControlName="name" placeholder="Enter your name here" class="form-control ps-3 me-3">
+            <input type="email" formControlName="email" placeholder="Enter your email here" class="form-control ps-3">
+          </div>
+          <div class="col-lg-12 mb-3">
+            <input type="text" formControlName="phone" placeholder="Phone number" class="form-control ps-3">
+          </div>
+          <div class="col-lg-12 mb-3">
+            <input type="text" formControlName="subject" placeholder="Enter your subject here" class="form-control ps-3">
+          </div>
+          <div class="col-lg-12 mb-3">
+            <textarea formControlName="message" placeholder="Enter your message here" class="form-control ps-3" rows="8"></textarea>
+          </div>
+          <div class="d-grid">
+            <button type="submit" class="btn btn-primary btn-lg text-uppercase btn-rounded-none" [disabled]="contactForm.invalid">
+              Send
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light text-white text-uppercase fs-6 p-3 border-bottom border-light align-items-center fixed-top border-opacity-10">
   <div class="container-fluid">
-    <!-- Mobile Header - Only visible on mobile -->
+    <!-- Mobile Header -->
     <div class="d-flex d-lg-none justify-content-between align-items-center w-100 mobile-header">
       <button class="navbar-toggler mobile-menu-btn" 
               type="button" 
@@ -10,11 +10,11 @@
               aria-label="Toggle navigation">
         <mat-icon class="menu-icon">menu</mat-icon>
       </button>
-      
+
       <a class="navbar-brand mx-auto" [routerLink]="['/']">
         <img [src]="logoUrl" alt="logo" class="navbar-logo">
       </a>
-      
+
       <button class="cart-btn mobile-cart" 
               data-bs-toggle="offcanvas" 
               data-bs-target="#offcanvasCart"
@@ -24,7 +24,7 @@
       </button>
     </div>
 
-    <!-- Desktop Header - Only visible on desktop -->
+    <!-- Desktop Header -->
     <div class="d-none d-lg-flex justify-content-between align-items-center w-100 desktop-nav">
       <div class="flex-shrink-0">
         <a class="navbar-brand" [routerLink]="['/']">
@@ -35,14 +35,14 @@
       <div class="flex-grow-1 d-flex justify-content-center">
         <ul class="navbar-nav flex-row gap-4">
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/']">Accueil</a>
+            <a class="nav-link" [routerLink]="['/']">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/shop']">Boutique</a>
+            <a class="nav-link" [routerLink]="['/shop']">Shop</a>
           </li>
           <li class="nav-item dropdown" *ngIf="activeCategories.length > 0">
             <a class="nav-link dropdown-toggle" id="categoryDropdown" data-bs-toggle="dropdown" role="button" aria-expanded="false">
-              Catégorie
+              Categories
             </a>
             <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
               <li *ngFor="let category of activeCategories">
@@ -59,7 +59,7 @@
             <a class="nav-link" [routerLink]="['/faq']">FAQ</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/about']">À Propos</a>
+            <a class="nav-link" [routerLink]="['/about']">About</a>
           </li>
         </ul>
       </div>
@@ -70,13 +70,13 @@
                 data-bs-target="#offcanvasCart"
                 aria-label="Open cart">
           <mat-icon class="cart-icon">shopping_bag</mat-icon>
-          <span class="cart-text text-uppercase mx-2">Panier</span>
+          <span class="cart-text text-uppercase mx-2">Cart</span>
           <span class="cart-badge" *ngIf="cartCount > 0">{{ cartCount }}</span>
         </button>
       </div>
     </div>
 
-    <!-- Mobile Offcanvas Menu - Only accessible on mobile -->
+    <!-- Mobile Offcanvas Menu -->
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
       <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
@@ -91,19 +91,19 @@
         <ul class="navbar-nav flex-column gap-3">
           <li class="nav-item">
             <a class="nav-link d-flex align-items-center" [routerLink]="['/']" data-bs-dismiss="offcanvas">
-              <mat-icon class="me-3">home</mat-icon>Accueil
+              <mat-icon class="me-3">home</mat-icon>Home
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link d-flex align-items-center" [routerLink]="['/shop']" data-bs-dismiss="offcanvas">
-              <mat-icon class="me-3">store</mat-icon>Boutique
+              <mat-icon class="me-3">store</mat-icon>Shop
             </a>
           </li>
           <li class="nav-item" *ngIf="activeCategories.length > 0">
             <div class="mobile-category-section">
               <div class="mobile-category-header">
                 <mat-icon class="me-3">category</mat-icon>
-                <span>Catégories</span>
+                <span>Categories</span>
               </div>
               <ul class="list-unstyled ms-4">
                 <li *ngFor="let category of activeCategories" class="mb-2">
@@ -126,7 +126,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link d-flex align-items-center" [routerLink]="['/about']" data-bs-dismiss="offcanvas">
-              <mat-icon class="me-3">info</mat-icon>À Propos
+              <mat-icon class="me-3">info</mat-icon>About
             </a>
           </li>
         </ul>

@@ -1,30 +1,29 @@
 <section id="new-arrival" class="new-arrival product-carousel product-element swiper-menu py-5 position-relative overflow-hidden">
   <div class="container">
     <div class="d-flex flex-wrap justify-content-between align-items-center mt-5 mb-3"> 
-      <h4 class="text-uppercase">Nos Nouvelles Arrivées</h4>
-      <a [routerLink]="['/shop']" class="btn-link">Voir Tous les Produits</a>  
+      <h4 class="text-uppercase">Our New Arrivals</h4>
+      <a [routerLink]="['/shop']" class="btn-link">View All Products</a>  
     </div>
 
     <div class="swiper product-swiper open-up" data-aos="zoom-out">
       <div class="swiper-wrapper d-flex">
         <div class="swiper-slide" *ngFor="let product of newProducts">
-  <div class="product-item image-zoom-effect link-effect">
-    <div class="image-holder position-relative">
-      <a [routerLink]="['/product', product.id]">
-        <img [src]="product.thumbnail" alt="Product Image" class="product-image img-fluid" />
-      </a>
-    </div>
-    <div class="product-content">
-      <h5 class="text-uppercase fs-5">
-        <a [routerLink]="['/product', product.id]">{{ product.title }}</a>
-      </h5>
-      <a class="text-decoration-none" (click)="addToCart(product)">
-        <span>DT{{ product.price.toFixed(2) }}</span>
-      </a>
-    </div>
-  </div>
-</div>
-
+          <div class="product-item image-zoom-effect link-effect">
+            <div class="image-holder position-relative">
+              <a [routerLink]="['/product', product.id]">
+                <img [src]="product.thumbnail" alt="Product Image" class="product-image img-fluid" />
+              </a>
+            </div>
+            <div class="product-content">
+              <h5 class="text-uppercase fs-5">
+                <a [routerLink]="['/product', product.id]">{{ product.title }}</a>
+              </h5>
+              <a class="text-decoration-none" (click)="addToCart(product)">
+                <span>TND {{ product.price.toFixed(2) }}</span>
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="swiper-pagination"></div>
     </div>

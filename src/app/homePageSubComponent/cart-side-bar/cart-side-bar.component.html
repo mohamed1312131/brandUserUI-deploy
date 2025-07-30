@@ -2,7 +2,7 @@
   <div class="offcanvas-header">
     <h5 class="offcanvas-title d-flex align-items-center">
       <mat-icon class="me-2">shopping_cart</mat-icon>
-      Votre Panier
+      Your Cart
     </h5>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
@@ -16,7 +16,7 @@
 
           <div class="cart-item-details">
             <h6 class="item-title">{{ item.title }}</h6>
-            <small class="text-muted">Taille: {{ item.size }} | Couleur: {{ item.color }}</small>
+            <small class="text-muted">Size: {{ item.size }} | Color: {{ item.color }}</small>
             <div class="item-subtotal">{{ item.price * item.quantity | currency:'TND' }}</div>
           </div>
 
@@ -44,7 +44,7 @@
         </div>
         <button (click)="goToCheckout()" class="btn btn-primary btn-lg w-100 checkout-btn">
           <mat-icon>credit_card</mat-icon>
-          <span class="ms-2">Continuer vers le paiement</span>
+          <span class="ms-2">Proceed to Checkout</span>
         </button>
       </div>
     </div>
@@ -52,11 +52,11 @@
     <ng-template #emptyCart>
       <div class="empty-cart-container">
         <mat-icon class="empty-cart-icon">production_quantity_limits</mat-icon>
-        <h5 class="mt-3">Votre panier est vide</h5>
-        <p class="text-muted">On dirait que vous n'avez encore rien ajouté.</p>
+        <h5 class="mt-3">Your cart is empty</h5>
+        <p class="text-muted">Looks like you haven't added anything yet.</p>
         <a [routerLink]="['/products']" (click)="closeCart()" class="btn btn-primary mt-3">
           <mat-icon>storefront</mat-icon>
-          <span class="ms-2">Commencer vos achats</span>
+          <span class="ms-2">Start Shopping</span>
         </a>
       </div>
     </ng-template>

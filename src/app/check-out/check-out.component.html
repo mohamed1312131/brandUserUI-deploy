@@ -1,14 +1,4 @@
-<section class="py-5">
-  <div class="container">
-    <div class="d-flex justify-content-between align-items-center">
-      <h1 class="page-title pb-2">Panier</h1>
-      <nav class="breadcrumb fs-6">
-        <a class="breadcrumb-item nav-link" [routerLink]="['/']">Accueil</a>
-        <span class="breadcrumb-item active" aria-current="page">Panier</span>
-      </nav>
-    </div>
-  </div>
-</section>
+<section class="py-5"></section>
 
 <section class="py-5" *ngIf="cartItems.length > 0">
   <div class="container">
@@ -17,9 +7,8 @@
         <div class="cart-table">
           <div class="cart-header">
             <div class="row d-flex">
-              <h6 class="cart-title text-uppercase text-muted col-lg-4 pb-3">Produit</h6>
-              <h6 class="cart-title text-uppercase text-muted col-lg-3 pb-3">Quantité</h6>
-              
+              <h6 class="cart-title text-uppercase text-muted col-lg-4 pb-3">Product</h6>
+              <h6 class="cart-title text-uppercase text-muted col-lg-3 pb-3">Quantity</h6>
             </div>
           </div>
 
@@ -79,11 +68,10 @@
 
       <div class="col-md-4">
         <div class="cart-totals bg-grey py-5">
-          <h4 class="text-dark pb-4">Total du Panier</h4>
+          <h4 class="text-dark pb-4">Cart Total</h4>
           <div class="total-price pb-5">
             <table class="table text-uppercase">
               <tbody>
-                
                 <tr class="order-total pt-2 pb-2 border-bottom">
                   <th>Total</th>
                   <td class="text-dark ps-5">
@@ -95,15 +83,14 @@
           </div>
           <div class="button-wrap row g-2">
             <div class="col-md-6">
-              <button class="btn btn-dark text-uppercase w-100" style="background-color: #cc2020;" (click)="clearCart()">Vider le Panier</button>
+              <button class="btn btn-dark text-uppercase w-100" style="background-color: #cc2020;" (click)="clearCart()">Empty Cart</button>
             </div>
             <div class="col-md-6">
-              <a class="btn btn-dark text-uppercase w-100" href="/shop">Continuer les Achats</a>
+              <a class="btn btn-dark text-uppercase w-100" href="/shop">Continue Shopping</a>
             </div>
             <button class="btn w-100 text-white text-uppercase" style="background-color: #2bb642;" (click)="goToConfirm()">
-  Procéder au Paiement
-</button>
-
+              Proceed to Checkout
+            </button>
           </div>
         </div>
       </div>
@@ -113,6 +100,6 @@
 </section>
 
 <section *ngIf="cartItems.length === 0" class="py-5 text-center">
-  <h3>Votre panier est vide.</h3>
-  <a class="btn btn-primary mt-3" [routerLink]="['/']">Parcourir les Produits</a>
+  <h3>Your cart is empty.</h3>
+  <a class="btn btn-primary mt-3" [routerLink]="['/']">Browse Products</a>
 </section>
