@@ -1,5 +1,5 @@
-<section class="hero-section jarallax">
-  <img src="../../assets/images/banner-large-4.jpg" class="jarallax-img">
+<section class="hero-section jarallax" *ngIf="heroImageUrl">
+  <img [src]="heroImageUrl" class="jarallax-img" alt="Hero image" />
   <div class="py-5">
     <div class="container"></div>
   </div>

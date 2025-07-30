@@ -27,6 +27,7 @@ export class ShopListComponent implements OnInit {
   selectedSize = '';
   selectedColor = '';
   selectedSort = '';
+  heroImageUrl: string | null = null;
 
   // Pagination
   currentPage = 1;
@@ -45,6 +46,14 @@ export class ShopListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.frontService.getActive().subscribe({
+    next: (data) => {
+      if (data && data.length > 0) {
+        this.heroImageUrl = data[0].imageUrl;
+      }
+    },
+    error: (err) => console.error('Error loading hero image', err)
+  });
     // Handle query param change for `category`
     this.route.queryParamMap.subscribe(params => {
       const category = params.get('category');

@@ -1,11 +1,12 @@
-<section class="hero-section jarallax">
-  <img src="../../../assets/images/banner-large-4.jpg" class="jarallax-img" />
+<section class="hero-section jarallax" *ngIf="heroImage">
+  <img [src]="heroImage" class="jarallax-img" />
   <div class="py-5">
     <div class="container">
       <div class="row"></div>
     </div>
   </div>
 </section>
+
 
 <div class="accordion container py-5" id="accordion-box">
   <div class="accordion-item" *ngFor="let faq of faqs; let i = index">
