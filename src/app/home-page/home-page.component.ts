@@ -16,7 +16,7 @@ import { InstagramSectionComponent } from "../homePageSubComponent/instagram-sec
 import { FooterComponent } from "../homePageSubComponent/footer/footer.component";
 import { CartSideBarComponent } from "../homePageSubComponent/cart-side-bar/cart-side-bar.component";
 import { NavBarComponent } from "../homePageSubComponent/nav-bar/nav-bar.component";
-
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 @Component({
   selector: 'app-home-page',
   standalone: true,
@@ -41,17 +41,18 @@ import { NavBarComponent } from "../homePageSubComponent/nav-bar/nav-bar.compone
 export class HomePageComponent implements OnInit {
   private http = inject(HttpClient);
   private platformId = inject(PLATFORM_ID);
-
+private breakpointObserver = inject(BreakpointObserver);
   showOurService = true;
 
   ngOnInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      this.http.post(`${environment.apiUrl}/orders/track`, {}).subscribe();
+    // Track order
+    this.http.post(`${environment.apiUrl}/orders/track`, {}).subscribe();
 
-      // Detect screen width to hide app-our-service on mobile
-      const screenWidth = window.innerWidth;
-      this.showOurService = screenWidth >= 768; // 768px and above = not mobile
-    }
+    // Watch for screen size
+    this.breakpointObserver.observe([Breakpoints.Handset]).subscribe(result => {
+      this.showOurService = !result.matches; // hide on mobile (Handset)
+    });
   }
+
 }
 
