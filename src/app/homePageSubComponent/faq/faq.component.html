@@ -1,5 +1,5 @@
 <section class="hero-section jarallax">
-  <img src="../../../assets/images/banner-large-4.jpg" class="jarallax-img">
+  <img src="../../../assets/images/banner-large-4.jpg" class="jarallax-img" />
   <div class="py-5">
     <div class="container">
       <div class="row"></div>
@@ -8,160 +8,23 @@
 </section>
 
 <div class="accordion container py-5" id="accordion-box">
-
-  <!-- GENERAL INFORMATION -->
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="heading-0">
-      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-0" aria-expanded="true" aria-controls="collapse-0">
-        1. General Information
+  <div class="accordion-item" *ngFor="let faq of faqs; let i = index">
+    <h2 class="accordion-header" [id]="'heading-' + i">
+      <button class="accordion-button" type="button"
+              [attr.data-bs-toggle]="'collapse'"
+              [attr.data-bs-target]="'#collapse-' + i"
+              [attr.aria-expanded]="i === 0 ? 'true' : 'false'"
+              [attr.aria-controls]="'collapse-' + i"
+              [ngClass]="{ collapsed: i !== 0 }">
+        {{ i + 1 }}. {{ faq.question }}
       </button>
     </h2>
-    <div id="collapse-0" class="accordion-collapse collapse show" aria-labelledby="heading-0" data-bs-parent="#accordion-box">
-      <div class="accordion-body">
-        Welcome to Edit Yam Studio, a Tunisian fashion brand committed to creating high-end, sustainable, and custom-made garments inspired by Carthaginian heritage and modern elegance. By placing an order on <strong>edityam.com</strong> or through our official channels, you agree to the terms described below.
-      </div>
+    <div [id]="'collapse-' + i"
+         class="accordion-collapse collapse"
+         [ngClass]="{ show: i === 0 }"
+         [attr.aria-labelledby]="'heading-' + i"
+         data-bs-parent="#accordion-box">
+      <div class="accordion-body" [innerHTML]="faq.answer"></div>
     </div>
   </div>
-
-  <!-- ORDER PROCESSING -->
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="heading-1">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-1" aria-expanded="false" aria-controls="collapse-1">
-        2. Order Processing
-      </button>
-    </h2>
-    <div id="collapse-1" class="accordion-collapse collapse" aria-labelledby="heading-1" data-bs-parent="#accordion-box">
-      <div class="accordion-body">
-        <ul>
-          <li>Orders are typically processed within 2–3 business days.</li>
-          <li>During sales or promotional periods, please allow up to 4 business days for shipping.</li>
-          <li>For out-of-stock or made-to-order items, production may take 2–4 business days before shipping.</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- SHIPPING -->
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="heading-2">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-2" aria-expanded="false" aria-controls="collapse-2">
-        3. Shipping (Tunisia Only)
-      </button>
-    </h2>
-    <div id="collapse-2" class="accordion-collapse collapse" aria-labelledby="heading-2" data-bs-parent="#accordion-box">
-      <div class="accordion-body">
-        <ul>
-          <li>Delivery time: 24–48 hours once the item is shipped</li>
-          <li>Shipping fees: Flat-rate shipping fees applied at checkout</li>
-          <li>Free delivery on all orders over 500 TND</li>
-          <li>Courier: Trusted local delivery partners</li>
-        </ul>
-        Please ensure your delivery address and contact details are accurate. Edit Yam is not responsible for delivery delays caused by incorrect information.
-      </div>
-    </div>
-  </div>
-
-  <!-- EXCHANGE POLICY -->
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="heading-3">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-3" aria-expanded="false" aria-controls="collapse-3">
-        4. Exchange Policy
-      </button>
-    </h2>
-    <div id="collapse-3" class="accordion-collapse collapse" aria-labelledby="heading-3" data-bs-parent="#accordion-box">
-      <div class="accordion-body">
-        <strong>4.1 Exchange Conditions</strong>
-        <ul>
-          <li>All sales are final. No refunds.</li>
-          <li>Exchanges are accepted within 14 days of the delivery date.</li>
-          <li>One exchange per order only.</li>
-          <li>Exchange allowed only for unworn, undamaged, clean items with original tags and ribbons intact.</li>
-          <li>Sale/promotion/final sale items cannot be exchanged or returned.</li>
-          <li>Subject to availability of the requested size or style.</li>
-          <li>Return shipping costs are the customer's responsibility.</li>
-        </ul>
-        To request an exchange, email <a href="mailto:info@edityam.com">info&#64;edityam.com</a> with your order number and photos of the item.
-      </div>
-    </div>
-  </div>
-
-  <!-- PRODUCT AVAILABILITY -->
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="heading-4">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-4" aria-expanded="false" aria-controls="collapse-4">
-        5. Product Availability
-      </button>
-    </h2>
-    <div id="collapse-4" class="accordion-collapse collapse" aria-labelledby="heading-4" data-bs-parent="#accordion-box">
-      <div class="accordion-body">
-        Due to the nature of limited-edition and made-to-order production, product availability may vary. If an item becomes unavailable after your order is placed, we will contact you to suggest a replacement, offer store credit, or discuss next steps.
-      </div>
-    </div>
-  </div>
-
-  <!-- CANCELLATION POLICY -->
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="heading-5">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-5" aria-expanded="false" aria-controls="collapse-5">
-        6. Cancellation Policy
-      </button>
-    </h2>
-    <div id="collapse-5" class="accordion-collapse collapse" aria-labelledby="heading-5" data-bs-parent="#accordion-box">
-      <div class="accordion-body">
-        <ul>
-          <li>Orders can only be canceled within 6 hours if production has not started.</li>
-          <li>Custom or made-to-order items cannot be canceled once production has started.</li>
-          <li>Pre-orders and sale items cannot be canceled.</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- CARE INSTRUCTIONS -->
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="heading-6">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-6" aria-expanded="false" aria-controls="collapse-6">
-        7. Care Instructions
-      </button>
-    </h2>
-    <div id="collapse-6" class="accordion-collapse collapse" aria-labelledby="heading-6" data-bs-parent="#accordion-box">
-      <div class="accordion-body">
-        Our pieces are made from delicate materials and require gentle care. Please refer to the care label on each garment. Edit Yam is not responsible for damage caused by improper washing or care.
-      </div>
-    </div>
-  </div>
-
-  <!-- INTELLECTUAL PROPERTY -->
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="heading-7">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-7" aria-expanded="false" aria-controls="collapse-7">
-        8. Intellectual Property
-      </button>
-    </h2>
-    <div id="collapse-7" class="accordion-collapse collapse" aria-labelledby="heading-7" data-bs-parent="#accordion-box">
-      <div class="accordion-body">
-        All content, designs, photography, and branding on <strong>edityam.com</strong> are the property of Edit Yam Studio. No use or reproduction is permitted without prior written consent.
-      </div>
-    </div>
-  </div>
-
-  <!-- CUSTOMER SUPPORT -->
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="heading-8">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-8" aria-expanded="false" aria-controls="collapse-8">
-        9. Customer Support
-      </button>
-    </h2>
-    <div id="collapse-8" class="accordion-collapse collapse" aria-labelledby="heading-8" data-bs-parent="#accordion-box">
-      <div class="accordion-body">
-        <p>For questions, support, or exchange inquiries, please contact:</p>
-        <ul>
-          <li>Email: <a href="mailto:info@edityam.com">info&#64;edityam.com</a></li>
-          <li>Location: La Marsa, Tunisia</li>
-          <li>Business hours: Monday–Friday, 10:00 AM – 6:00 PM</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
 </div>
