@@ -36,7 +36,7 @@ export class FAQComponent implements OnInit {
   ngOnInit(): void {
   if (this.isBrowser) {
     // Load FAQs
-    this.http.get<any[]>(`${environment.apiUrl}/faq`).subscribe({
+    this.http.get<any[]>(`${environment.apiUrl}/faqs`).subscribe({
       next: (data) => this.faqs = data,
       error: (err) => console.error('Failed to load FAQs', err)
     });
