@@ -29,7 +29,7 @@ export class AboutUsComponent implements OnInit {
         this.aboutImageUrl = info.aboutUs?.imageUrl || '';
       },
       error: (err) => {
-        console.error('Failed to load About Us info:', err);
+        console.error('Failed to load About info:', err);
       }
     });
   }
