@@ -1,0 +1,67 @@
+.inquiry-label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-size: 0.875rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--heading-color, #111);
+}
+
+.inquiry-label .required {
+  color: var(--bs-primary, #8C907E);
+}
+
+fieldset legend.inquiry-label {
+  float: none;
+  width: auto;
+}
+
+.form-control,
+.form-select {
+  border-radius: 0;
+  min-height: 3rem;
+}
+
+.form-select:focus {
+  border-color: #ccc;
+  box-shadow: 0 0 0 0.25rem rgba(200, 200, 200, 0.25);
+}
+
+/* Clears the fixed header so the title isn't hidden under it. */
+.client-inquiry-wrap {
+  padding-top: 140px !important;
+}
+
+@media (max-width: 991px) {
+  .client-inquiry-wrap {
+    padding-top: 100px !important;
+  }
+}
+
+/* The theme zeroes .form-check padding, which pushes Bootstrap's negative-margin checkbox out of its label. */
+.form-check {
+  padding-left: 1.75em;
+  margin-right: 2rem;
+}
+
+.form-check-input {
+  border-radius: 0;
+}
+
+.form-check-input:checked {
+  background-color: var(--bs-primary, #8C907E);
+  border-color: var(--bs-primary, #8C907E);
+}
+
+.inquiry-success {
+  border: 1px solid #e5e5e5;
+  background: var(--bs-light, #F1F1F0);
+}
+
+.inquiry-hp {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}

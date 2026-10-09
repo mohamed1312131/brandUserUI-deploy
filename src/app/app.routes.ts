@@ -9,6 +9,7 @@ import { FAQComponent } from './homePageSubComponent/faq/faq.component';
 import { ContactUsComponent } from './homePageSubComponent/contact-us/contact-us.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { ThankYouComponent } from './homePageSubComponent/thank-you/thank-you.component';
+import { ClientInquiryComponent } from './client-inquiry/client-inquiry.component';
 
 export const routes: Routes = [
   {
@@ -42,6 +43,10 @@ export const routes: Routes = [
       {
         path:'contact',
         component: ContactUsComponent
+      },
+      {
+        path: 'client-inquiry-form',
+        component: ClientInquiryComponent
       },
       {
         path:'about',

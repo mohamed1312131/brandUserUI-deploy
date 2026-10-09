@@ -1,0 +1,124 @@
+<section class="client-inquiry-wrap py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <h2 class="fs-3 text-uppercase text-center mb-4">Client Inquiry Form</h2>
+
+        <div *ngIf="submitted; else inquiryForm" class="inquiry-success text-center py-5" role="status">
+          <h5 class="element-title text-uppercase">Thank you!</h5>
+          <p>Your inquiry has been received. We will get back to you shortly.</p>
+          <button type="button" class="btn btn-dark text-uppercase mt-3" (click)="submitted = false">
+            Send another inquiry
+          </button>
+        </div>
+
+        <ng-template #inquiryForm>
+          <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+            <!-- Honeypot: invisible to people, filled by bots. -->
+            <div class="inquiry-hp" aria-hidden="true">
+              <label for="ci-website">Website</label>
+              <input id="ci-website" type="text" formControlName="website" tabindex="-1" autocomplete="off">
+            </div>
+
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="ci-name" class="inquiry-label">Name <span class="required">*</span></label>
+                <input id="ci-name" type="text" formControlName="name" class="form-control ps-3"
+                       autocomplete="name" [class.is-invalid]="isInvalid('name')">
+                <div *ngIf="isInvalid('name')" class="invalid-feedback">Name is required</div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="ci-email" class="inquiry-label">Email <span class="required">*</span></label>
+                <input id="ci-email" type="email" formControlName="email" class="form-control ps-3"
+                       autocomplete="email" [class.is-invalid]="isInvalid('email')">
+                <div *ngIf="isInvalid('email')" class="invalid-feedback">
+                  {{ form.get('email')?.errors?.['required'] ? 'Email is required' : 'Invalid email format' }}
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="ci-phone" class="inquiry-label">Phone number</label>
+                <input id="ci-phone" type="tel" formControlName="phone" class="form-control ps-3"
+                       autocomplete="tel" [class.is-invalid]="isInvalid('phone')">
+              </div>
+
+              <div class="col-md-6">
+                <label for="ci-contact" class="inquiry-label">Preferred method of communication</label>
+                <select id="ci-contact" formControlName="preferredContactMethod" class="form-select ps-3">
+                  <option value="">Select an option</option>
+                  <option *ngFor="let o of contactMethods" [value]="o.value">{{ o.label }}</option>
+                </select>
+              </div>
+
+              <div class="col-md-6">
+                <label for="ci-event" class="inquiry-label">Event date</label>
+                <input id="ci-event" type="date" formControlName="eventDate" class="form-control ps-3"
+                       [min]="minDate" [class.is-invalid]="isInvalid('eventDate')">
+                <div *ngIf="isInvalid('eventDate')" class="invalid-feedback">Date cannot be in the past</div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="ci-appointment" class="inquiry-label">Appointment date preference (optional)</label>
+                <input id="ci-appointment" type="date" formControlName="appointmentDatePreference"
+                       class="form-control ps-3" [min]="minDate"
+                       [class.is-invalid]="isInvalid('appointmentDatePreference')">
+                <div *ngIf="isInvalid('appointmentDatePreference')" class="invalid-feedback">Date cannot be in the past</div>
+              </div>
+
+              <fieldset class="col-12" formGroupName="appointmentTypes">
+                <legend class="inquiry-label">Appointment type (optional)</legend>
+                <div class="form-check form-check-inline" *ngFor="let o of appointmentTypes">
+                  <input class="form-check-input" type="checkbox" [id]="'ci-type-' + o.value" [formControlName]="o.value">
+                  <label class="form-check-label" [for]="'ci-type-' + o.value">{{ o.label }}</label>
+                </div>
+              </fieldset>
+
+              <div class="col-12">
+                <label for="ci-interest" class="inquiry-label">Are you interested in</label>
+                <select id="ci-interest" formControlName="interest" class="form-select ps-3">
+                  <option value="">Select an option</option>
+                  <option *ngFor="let o of interests" [value]="o.value">{{ o.label }}</option>
+                </select>
+              </div>
+
+              <div class="col-12">
+                <label for="ci-styles" class="inquiry-label">Styles of interest</label>
+                <textarea id="ci-styles" formControlName="stylesOfInterest" class="form-control ps-3" rows="4"></textarea>
+              </div>
+
+              <div class="col-12">
+                <label for="ci-discovery" class="inquiry-label">How did you discover the brand</label>
+                <textarea id="ci-discovery" formControlName="discoverySource" class="form-control ps-3" rows="4"></textarea>
+              </div>
+
+              <div class="col-md-6">
+                <label for="ci-stylist" class="inquiry-label">Are you working with a stylist?</label>
+                <select id="ci-stylist" formControlName="workingWithStylist" class="form-select ps-3">
+                  <option value="">Select an option</option>
+                  <option value="YES">Yes</option>
+                  <option value="NO">No</option>
+                </select>
+              </div>
+
+              <div class="col-md-6" *ngIf="withStylist">
+                <label for="ci-stylist-name" class="inquiry-label">If yes, who is the stylist?</label>
+                <input id="ci-stylist-name" type="text" formControlName="stylistName" class="form-control ps-3">
+              </div>
+
+              <div class="col-12" *ngIf="errorMessage">
+                <div class="alert alert-danger rounded-0 mb-0" role="alert">{{ errorMessage }}</div>
+              </div>
+
+              <div class="col-12 d-grid mt-4">
+                <button type="submit" class="btn btn-primary btn-lg text-uppercase" [disabled]="isSubmitting">
+                  {{ isSubmitting ? 'Sending...' : 'Submit' }}
+                </button>
+              </div>
+            </div>
+          </form>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</section>
