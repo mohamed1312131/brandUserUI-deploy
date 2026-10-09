@@ -1,6 +1,6 @@
 <ng-container *ngIf="activeNote">
   <section class="collection bg-light">
-    <div class="collection-item d-flex flex-wrap align-items-center my-5">
+    <div class="collection-item d-flex flex-wrap align-items-center my-5" [class.flex-md-row-reverse]="activeNote.imagePosition === 'RIGHT'">
       <div class="col-md-6">
         <div class="image-holder">
           <img [src]="activeNote.imageUrl" alt="note image" class="product-image img-fluid">
@@ -11,7 +11,14 @@
           <div class="col-md-8">
             <h3 class="element-title text-uppercase">{{ activeNote.title }}</h3>
             <p>{{ activeNote.description }}</p>
-            <a [routerLink]="['/shop']" class="btn btn-dark text-uppercase mt-3">Shop Now</a>
+            <ng-container *ngIf="button as b">
+              <a *ngIf="b.external; else internalLink" [href]="b.url" target="_blank" rel="noopener noreferrer"
+                 class="btn btn-dark text-uppercase mt-3">{{ b.text }}</a>
+              <ng-template #internalLink>
+                <a [routerLink]="b.path" [queryParams]="b.queryParams" [fragment]="b.fragment"
+                   class="btn btn-dark text-uppercase mt-3">{{ b.text }}</a>
+              </ng-template>
+            </ng-container>
           </div>
         </div>
       </div>
